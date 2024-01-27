@@ -120,7 +120,7 @@ void Camera::updateCameraVectors()
     Right = glm::normalize(glm::cross(Front, WorldUp));
     Up = glm::normalize(glm::cross(Right, Front));
 
-    std::cout << Position.x << '\n' << Position.y << '\n' << Position.z;
+    //std::cout << Position.x << '\n' << Position.y << '\n' << Position.z;
 }
 
 GLfloat Camera::getZoom()

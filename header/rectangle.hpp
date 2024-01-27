@@ -14,6 +14,7 @@ public:
     void setVertices() override;
     void setupBufferVertex() override;
     void draw() override;
+    void setColor(GLfloat red, GLfloat green, GLfloat blue) override;
 private:
     GLfloat vertices[288];
 };
@@ -103,4 +104,15 @@ void Rectangle::draw()
 
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0,36);
+}
+
+void Rectangle::setColor(GLfloat red, GLfloat green, GLfloat blue)
+{
+    for (size_t i = 0; i < 36; i++)
+    {
+        vertices[i*8+3] = red;
+        vertices[i*8+4] = green;
+        vertices[i*8+5] = blue;
+    } 
+    setupBufferVertex();
 }

@@ -1,3 +1,4 @@
+#include <window.hpp>
 #include <shader.hpp>
 #include <camera.hpp>
 #include <rectangle.hpp>
@@ -27,108 +28,25 @@ glm::vec3 cubePositions[] = {
 int g_windowSizeX = 800;
 int g_windowSizeY = 600;
 
-Camera camera(glm::vec3(0.0f,0.0f,3.0f));
-GLfloat lastX = g_windowSizeX / 2.0f;
-GLfloat lastY = g_windowSizeY / 2.0f;
-GLboolean firstMouse = true;
-GLboolean keys[1024];
-
-GLfloat deltaTime = 0.0f;
-GLfloat lastFrame = 0.0f;
-
-void glfwWindowSizeCallback(GLFWwindow* window, int width, int height)
+void fps()
 {
-    g_windowSizeX = width;
-    g_windowSizeY = height;
-    glViewport(0, 0, g_windowSizeX, g_windowSizeY);
-}
+    double lastTime = glfwGetTime();
+    int nbFrames = 0;
 
-void glfwKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
-{
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-    {
-        glfwSetWindowShouldClose(window,GL_TRUE);
-    }
-
-    if(action == GLFW_PRESS)
-    {
-        keys[key] = true;
-    }else if(action == GLFW_RELEASE)
-    {
-        keys[key] = false;
+    double currentTime = glfwGetTime();
+    nbFrames++;
+    if ( currentTime - lastTime >= 0.0 ){ // If last prinf() was more than 1 sec ago
+        // printf and reset timer
+        std::cout << 1000.0/(double)nbFrames << "ms/frame\n";
+        nbFrames = 0;
+        lastTime += 1.0;
     }
 }
 
-void doMovement()
-{
-    if(keys[GLFW_KEY_W]){camera.ProcessKeyBoard(FORWARD,deltaTime);}
-    if(keys[GLFW_KEY_S]){camera.ProcessKeyBoard(BACKWARD,deltaTime);}
-    if(keys[GLFW_KEY_A]){camera.ProcessKeyBoard(LEFT,deltaTime);}
-    if(keys[GLFW_KEY_D]){camera.ProcessKeyBoard(RIGHT,deltaTime);}
-}
-
-void glfwMouseCallback(GLFWwindow *window, GLdouble xposIn, GLdouble yposIn)
-{
-    GLfloat xpos = static_cast<GLfloat>(xposIn);
-    GLfloat ypos = static_cast<GLfloat>(yposIn);
-
-    if(firstMouse)
-    {
-        lastX = xpos;
-        lastY = ypos;
-        firstMouse = false;
-    }
-
-    GLfloat xoffset = xpos - lastX;
-    GLfloat yoffset = lastY - ypos;
-
-    lastX = xpos;
-    lastY = ypos;
-
-    camera.ProcessMouseMovement(xoffset,yoffset);
-}
-
-void glfwScrollCallback(GLFWwindow *window, GLdouble xoffset, GLdouble yoffset)
-{
-    camera.ProcessMouseScroll(static_cast<GLfloat>(yoffset));
-}
 
 int main(void)
 {
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    /* Initialize the library */
-    if (!glfwInit())
-    {
-        return -1;
-    }
-    
-    /* Create a windowed mode window and its OpenGL context */
-    GLFWwindow* window = glfwCreateWindow(g_windowSizeX, g_windowSizeY, "Hello World", nullptr, nullptr);
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-    glfwSetWindowSizeCallback(window, glfwWindowSizeCallback);
-    glfwSetKeyCallback(window, glfwKeyCallback);
-    glfwSetCursorPosCallback(window,glfwMouseCallback);
-    glfwSetScrollCallback(window,glfwScrollCallback);
-
-    glfwSetInputMode(window,GLFW_CURSOR,GLFW_CURSOR_DISABLED);
-
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
-        return -1;
-    }
-    
-    std::cout << "Render: " << glGetString(GL_RENDERER) << std::endl;
-    std::cout << "OpenGL version:" << glGetString(GL_VERSION)  << std::endl;
-    glEnable(GL_DEPTH_TEST); 
+    Window window{};
 
     Shader shader("resources/shaders/vertex.txt","resources/shaders/fragment.txt");
     shader.use();
@@ -136,7 +54,7 @@ int main(void)
     //rectangle.loadTexture("resources/images/container.jpg","jpg",shader);
     //rectangle.loadTexture("resources/images/awesomeface.png","png",shader);
 
-    while (!glfwWindowShouldClose(window))
+    while (!window.closed())
     {
         // render
         // ------
@@ -147,6 +65,7 @@ int main(void)
         glfwPollEvents();
         doMovement(); 
 
+        rectangle.setColor(0.2f,0.2f,sin(glfwGetTime()));
         glClearColor(0.5f, 0.5f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);       
 
@@ -172,7 +91,7 @@ int main(void)
         }
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
-        glfwSwapBuffers(window);
+        window.swapBuffers();
         glfwPollEvents();
     }
 

@@ -5,7 +5,8 @@ project(${PROJECT_NAME})
 
 include_directories("header/")
 
-add_executable(${PROJECT_NAME} src/main.cpp 	
+add_executable(${PROJECT_NAME} src/main.cpp
+						header/window.hpp
 						header/gameObject.hpp
 						header/rectangle.hpp
 						header/shader.hpp 

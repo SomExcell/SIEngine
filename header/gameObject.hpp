@@ -18,6 +18,7 @@ public:
     virtual void setVertices(){};
     virtual void setupBufferVertex(){};
     virtual void draw(){};
+    virtual void setColor(GLfloat red, GLfloat green, GLfloat blue){};
     virtual GLuint getVAO();
     virtual GLuint getVBO();
 protected:
