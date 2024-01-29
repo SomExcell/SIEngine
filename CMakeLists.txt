@@ -6,6 +6,12 @@ project(${PROJECT_NAME})
 include_directories("header/")
 
 add_executable(${PROJECT_NAME} src/main.cpp
+						src/window/Window.h
+						src/window/Window.cpp
+						src/window/Events.h
+						src/window/Events.cpp
+						src/graphics/Shader.h
+						src/graphics/Shader.cpp
 						header/window.hpp
 						header/gameObject.hpp
 						header/rectangle.hpp

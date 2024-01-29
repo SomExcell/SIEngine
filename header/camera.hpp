@@ -1,5 +1,8 @@
 #pragma once
 
+#include <shader.hpp>
+#include <window.hpp>
+
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -32,7 +35,10 @@ public:
     void ProcessMouseMovement(GLfloat xoffset, GLfloat yoffset, GLboolean constrainPitch = true);
     void ProcessMouseScroll(GLfloat yoffset);
 
+    void update(Shader &shader,GLuint windowSizeX, GLuint windowSizeY);
+
     GLfloat getZoom();
+    
 private:
     void updateCameraVectors();
 
@@ -48,6 +54,9 @@ private:
     GLfloat movementSpeed = SPEED;
     GLfloat mouseSensitivity = SENSITIVITY;
     GLfloat zoom = ZOOM;
+
+    glm::mat4 projection;
+    glm::mat4 view;
 };
 
 Camera::Camera(glm::vec3 position, glm::vec3 up, GLfloat yaw, GLfloat pitch)
@@ -121,6 +130,14 @@ void Camera::updateCameraVectors()
     Up = glm::normalize(glm::cross(Right, Front));
 
     //std::cout << Position.x << '\n' << Position.y << '\n' << Position.z;
+}
+
+void Camera::update(Shader &shader,GLuint windowSizeX, GLuint windowSizeY)
+{
+    projection = glm::perspective(glm::radians(getZoom()), (GLfloat)windowSizeX / (GLfloat)windowSizeY, 0.1f, 100.0f);
+    shader.setMat4("projection", projection);
+    view = GetViewMatrix();
+    shader.setMat4("view", view);
 }
 
 GLfloat Camera::getZoom()
