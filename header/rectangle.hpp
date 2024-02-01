@@ -1,6 +1,6 @@
 #pragma once
 
-#include <gameObject.hpp>
+#include "gameObject.hpp"
 
 #include <glad/glad.h>
 

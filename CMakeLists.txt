@@ -4,20 +4,30 @@ set(PROJECT_NAME SIEngine)
 project(${PROJECT_NAME})
 
 include_directories("header/")
+include_directories("src/")
 
 add_executable(${PROJECT_NAME} src/main.cpp
 						src/window/Window.h
 						src/window/Window.cpp
+
 						src/window/Events.h
 						src/window/Events.cpp
+
+						src/window/Camera.h
+						src/window/Camera.cpp
+
 						src/graphics/Shader.h
 						src/graphics/Shader.cpp
-						header/window.hpp
-						header/gameObject.hpp
-						header/rectangle.hpp
-						header/shader.hpp 
-						header/camera.hpp
-						header/stb_image.h)
+
+						src/graphics/Texture.h
+						src/graphics/Texture.cpp
+
+						src/loaders/png_loading.h
+						src/loaders/png_loading.cpp
+						
+
+						src/graphics/stb_image.h
+						)
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)

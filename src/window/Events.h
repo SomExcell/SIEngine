@@ -3,28 +3,30 @@
 
 #include "Window.h"
 
-class Events
-{
+typedef unsigned int uint;
+
+class Events {
 public:
-    static int initialize();
-    static void pullEvents();
+	static bool* _keys;
+	static uint* _frames;
+	static uint _current;
+	static float deltaX;
+	static float deltaY;
+	static float x;
+	static float y;
+	static bool _cursor_locked;
+	static bool _cursor_started;
 
-    static bool pressed(int keycode);
-    static bool jpressed(int keycode);
+	static int initialize();
+	static void pullEvents();
 
-    static bool clicked(int button);
-    static bool jclicked(int button);
+	static bool pressed(int keycode);
+	static bool jpressed(int keycode);
 
-public:
-    static bool* _keys;
-    static unsigned int* _frames;
-    static unsigned int _current;
-    static float deltaX;
-    static float deltaY;
-    static float x;
-    static float y;
-    static bool _cursor_locked;
-    static bool _cursor_started ;
+	static bool clicked(int button);
+	static bool jclicked(int button);
+
+	static void toogleCursor();
 };
 
-#endif
+#endif /* WINDOW_EVENTS_H_ */

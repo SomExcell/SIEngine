@@ -1,6 +1,6 @@
 #pragma once
 
-#include <shader.hpp>
+#include "Shader.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -14,7 +14,7 @@ class GameObject
 public:
     GameObject(){};
     ~GameObject(){};
-    virtual void loadTexture(const std::string &texturePath, const std::string &typeTexture, Shader &shsader);
+    virtual void loadTexture(const std::string &texturePath, const std::string &typeTexture, Shader &shader);
     virtual void setVertices(){};
     virtual void setupBufferVertex(){};
     virtual void draw(){};
