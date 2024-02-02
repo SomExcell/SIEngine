@@ -1,4 +1,3 @@
-
 #include "png_loading.h"
 
 #include <iostream>

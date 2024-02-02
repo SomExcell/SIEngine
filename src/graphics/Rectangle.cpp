@@ -1,27 +1,21 @@
-#include <iostream>
+#include "Rectangle.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+Rectangle::Rectangle()
+{
+    setVertices();
+    setupBufferVertex();
+}
 
-// GLM
-#include <glm/glm.hpp>
-#include <glm/ext.hpp>
-using namespace glm;
+Rectangle::~Rectangle()
+{
+    delete texture;
+    glDeleteBuffers(1, &VBO);
+	glDeleteVertexArrays(1, &VAO);
+}
 
-#include "graphics/Shader.h"
-#include "graphics/Texture.h"
-#include "window/Window.h"
-#include "window/Events.h"
-#include "window/Camera.h"
-#include "loaders/png_loading.h"
-#include "graphics/Rectangle.h"
-
-int WIDTH = 1280;
-int HEIGHT = 720;
-
-void moveCamera(Camera *camera, float delta, float speed, float &camX, float &camY);
-
-float vertices[] = {
+void Rectangle::setVertices()
+{
+    GLfloat cube[288] = {
     //positions                 //color            //texture coords
     -0.5f, -0.5f, -0.5f,    1.0f, 0.0f, 0.0f,      0.0f, 0.0f, //1
      0.5f, -0.5f, -0.5f,    1.0f, 0.0f, 1.0f,      1.0f, 0.0f, //2
@@ -63,75 +57,49 @@ float vertices[] = {
      0.5f,  0.5f,  0.5f,    0.0f, 0.0f, 0.0f,      1.0f, 0.0f,//33   top
      0.5f,  0.5f,  0.5f,    0.0f, 0.0f, 0.0f,      1.0f, 0.0f,//34
     -0.5f,  0.5f,  0.5f,    0.0f, 0.0f, 0.0f,      0.0f, 0.0f,//35
-    -0.5f,  0.5f, -0.5f,    0.0f, 0.0f, 0.0f,      0.0f, 1.0f};
-
-
-int main() {
-	Window::initialize(WIDTH, HEIGHT, "Window 2.0");
-	Events::initialize();
+    -0.5f,  0.5f, -0.5f,    0.0f, 0.0f, 0.0f,      0.0f, 1.0f};//36
     
-	Shader* shader = load_shader("resources/shaders/vs.txt", "resources/shaders/fs.txt");
-	if (shader == nullptr){
-		std::cerr << "failed to load shader" << std::endl;
-		Window::terminate();
-		return 1;
-	}
-    
-	Texture* texture = load_texture("resources/images/container.jpg");
-	if (texture == nullptr){
-		std::cerr << "failed to load texture" << std::endl;
-		delete shader;
-		Window::terminate();
-		return 1;
-	}
+    std::copy(std::begin(cube),std::end(cube),std::begin(vertices));
+}
 
-	Rectangle *rectangle = new Rectangle();
-	rectangle->loadTexture("resources/images/container.jpg","jpg");
+void Rectangle::setupBufferVertex()
+{
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
 
-	glClearColor(0.6f,0.62f,0.65f,1);
-	
-    glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_CULL_FACE);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    //glEnable(GL_DEPTH_TEST);
+    glBindVertexArray(VAO);
 
-	Camera* camera = new Camera(vec3(0,0,1), radians(90.0f));
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	mat4 model(1.0f);
-	model = translate(model, vec3(0.5f,0,0));
+    // position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    // color attribute
+    //glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    //glEnableVertexAttribArray(1);
+    // texture coord attribute
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+    glBindVertexArray(0);
+}
 
-	while (!Window::isShouldClose()){
-		
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void Rectangle::draw()
+{
+    texture->bind();
 
-		if (Events::jpressed(GLFW_KEY_ESCAPE)){
-		Window::setShouldClose(true);
-		}
-		if (Events::jpressed(GLFW_KEY_TAB)){
-			Events::toogleCursor();
-		}
-		
-		camera->move();
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0,36);
+    glBindVertexArray(0);
+}
 
-		// Draw VAO
-		shader->use();
-		shader->uniformMatrix("model", model);
-		shader->uniformMatrix("projview", camera->getProjection()*camera->getView());
-		texture->bind();
-
-		rectangle->draw();
-		//glBindVertexArray(VAO);
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
-		//glBindVertexArray(0);
-
-		Window::swapBuffers();
-		Events::pullEvents();
-	}
-
-	delete shader;
-	delete texture;
-
-	Window::terminate();
-	return 0;
+void Rectangle::setColor(GLfloat red, GLfloat green, GLfloat blue)
+{
+    for (size_t i = 0; i < 36; i++)
+    {
+        vertices[i*8+3] = red;
+        vertices[i*8+4] = green;
+        vertices[i*8+5] = blue;
+    } 
+    setupBufferVertex();
 }

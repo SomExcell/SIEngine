@@ -1,9 +1,12 @@
 #include "Camera.h"
 #include "Window.h"
+#include "Events.h"
 
+#include <GLFW/glfw3.h>
 #include <glm/ext.hpp>
 
 Camera::Camera(glm::vec3 position, float fov) : position(position), fov(fov), rotation(1.0f) {
+	lastTime = glfwGetTime();
 	updateVectors();
 }
 
@@ -19,6 +22,40 @@ void Camera::rotate(float x, float y, float z){
 	rotation = glm::rotate(rotation, x, glm::vec3(1,0,0));
 
 	updateVectors();
+}
+
+void Camera::move()
+{
+	currentTime = glfwGetTime();
+	delta = currentTime - lastTime;
+	lastTime = currentTime;
+	if (Events::pressed(GLFW_KEY_W)){
+		position += front * delta * speed;
+	}
+	if (Events::pressed(GLFW_KEY_S)){
+		position -= front * delta * speed;
+	}
+	if (Events::pressed(GLFW_KEY_D)){
+		position += right * delta * speed;
+	}
+	if (Events::pressed(GLFW_KEY_A)){
+		position -= right * delta * speed;
+	}
+
+	if (Events::_cursor_locked){
+		camY += -Events::deltaY / Window::height * 2;
+		camX += -Events::deltaX / Window::height * 2;
+
+		if (camY < -glm::radians(89.0f)){
+			camY = -glm::radians(89.0f);
+		}
+		if (camY > glm::radians(89.0f)){
+			camY = glm::radians(89.0f);
+		}
+
+		rotation = glm::mat4(1.0f);
+		rotate(camY, camX, 0);
+	}
 }
 
 glm::mat4 Camera::getProjection(){

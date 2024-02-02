@@ -22,6 +22,12 @@ add_executable(${PROJECT_NAME} src/main.cpp
 						src/graphics/Texture.h
 						src/graphics/Texture.cpp
 
+						src/graphics/GameObject.h
+						src/graphics/GameObject.cpp
+
+						src/graphics/Rectangle.h
+						src/graphics/Rectangle.cpp
+
 						src/loaders/png_loading.h
 						src/loaders/png_loading.cpp
 						
