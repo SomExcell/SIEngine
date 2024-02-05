@@ -5,7 +5,14 @@ in vec2 a_texCoord;
 out vec4 f_color;
 
 uniform sampler2D u_texture0;
+uniform bool isTexture;
 
 void main(){
-	f_color = a_color * texture(u_texture0, a_texCoord);
+	if(isTexture)
+	{
+		f_color = texture(u_texture0, a_texCoord);
+	}else
+	{
+		f_color = a_color;
+	}
 }

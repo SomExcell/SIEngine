@@ -10,7 +10,7 @@ public:
     ~Rectangle();
     void setVertices() override;
     void setupBufferVertex() override;
-    void draw() override;
+    void draw(Shader &shader) override;
     void setColor(GLfloat red, GLfloat green, GLfloat blue) override;
 private:
     GLfloat vertices[288];

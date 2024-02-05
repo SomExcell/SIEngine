@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "Texture.h"
+#include "Shader.h"
 
 class GameObject
 {
@@ -15,7 +16,7 @@ public:
     virtual void loadTexture(const std::string &texturePath, const std::string &typeTexture);
     virtual void setVertices() = 0;
     virtual void setupBufferVertex() = 0;
-    virtual void draw() = 0;
+    virtual void draw(Shader &shader) = 0;
     virtual void setColor(float red, GLfloat green, GLfloat blue) = 0;
     virtual GLuint getVAO();
     virtual GLuint getVBO();
