@@ -31,6 +31,9 @@ add_executable(${PROJECT_NAME} src/main.cpp
 						src/loaders/png_loading.h
 						src/loaders/png_loading.cpp
 						
+						src/window/FPSCounter.h
+						src/window/FPSCounter.cpp
+
 						src/graphics/stb_image.h
 						)
 

@@ -8,6 +8,9 @@
 #include "../graphics/Texture.h"
 
 Texture* load_texture(std::string filename){
+    std::string typeImage;
+    if(filename[filename.size()-3] == 'j'){typeImage == "jpg";}
+    else if(filename[filename.size()-3] == 'p'){typeImage = "png";}
     GLuint texture;
 	glGenTextures(1,&texture);
     glBindTexture(GL_TEXTURE_2D,texture);
@@ -15,7 +18,7 @@ Texture* load_texture(std::string filename){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     // set texture filtering parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load and generate the texture
     GLint width,height,nrChannels;
@@ -23,12 +26,22 @@ Texture* load_texture(std::string filename){
     unsigned char *data = stbi_load(filename.c_str(),&width,&height,&nrChannels,0);
     if(data)
     {
-        glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,data);
+        GLenum format;
+        if (nrChannels == 1)
+            format = GL_RED;
+        else if (nrChannels == 3)
+            format = GL_RGB;
+        else if (nrChannels == 4)
+            format = GL_RGBA;
+
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
-    }else
+        stbi_image_free(data);
+    }
+    else
     {
         std::cerr << "Failed to load texture" << std::endl;
     }
-    stbi_image_free(data);
 	return new Texture(texture, width, height);
 }
