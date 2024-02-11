@@ -7,10 +7,8 @@
 
 #include "../graphics/Texture.h"
 
-Texture* load_texture(std::string filename){
-    std::string typeImage;
-    if(filename[filename.size()-3] == 'j'){typeImage == "jpg";}
-    else if(filename[filename.size()-3] == 'p'){typeImage = "png";}
+Texture* load_texture(std::string filename)
+{
     GLuint texture;
 	glGenTextures(1,&texture);
     glBindTexture(GL_TEXTURE_2D,texture);

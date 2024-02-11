@@ -28,6 +28,9 @@ add_executable(${PROJECT_NAME} src/main.cpp
 						src/graphics/Rectangle.h
 						src/graphics/Rectangle.cpp
 
+						src/graphics/Light.h
+						src/graphics/Light.cpp
+
 						src/loaders/png_loading.h
 						src/loaders/png_loading.cpp
 						

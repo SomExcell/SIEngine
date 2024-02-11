@@ -28,7 +28,6 @@ uniform float time;
 void main()
 {
     
-    
     /*Ambient */
     vec3 ambient = light.ambient * vec3(texture(material.specular, TexCoords));   /*use specular texture */
     
@@ -53,10 +52,10 @@ void main()
         emission = texture(material.emission, TexCoords).rgb;
         
         /*some extra fun stuff with "time uniform" */
-        //emission = texture(material.emission, TexCoords + vec2(0.0,time)).rgb;   /*moving */
-        emission = emission * vec3(1.0,0.0,0.0) * 5.0;                     /*fading */
+        emission = texture(material.emission, TexCoords + vec2(0.0,time)).rgb;   /*moving */
+        emission = emission * 2.0;                /*fading */
     }
-    
+
    /*output */
     color = vec4(ambient + diffuse + specular + emission, 1.0f);
 }

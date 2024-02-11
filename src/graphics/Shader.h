@@ -42,6 +42,6 @@ private:
     GLuint ID = 0;
 };
 
-extern Shader* load_shader(std::string vertexFile, std::string fragmentFile);
+extern Shader* load_shader(const std::string &vertexFile, const std::string &fragmentFile);
 
 #endif

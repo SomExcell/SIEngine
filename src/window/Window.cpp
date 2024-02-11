@@ -4,6 +4,12 @@
 #include "Window.h"
 
 GLFWwindow* Window::window;
+
+Shader *Window::objectShader;
+Shader *Window::lightShader;
+
+Camera *Window::camera;
+
 unsigned int Window::width = 0;
 unsigned int Window::height = 0;
 
@@ -67,4 +73,19 @@ void Window::setShouldClose(bool flag)
 void Window::swapBuffers()
 {
 	glfwSwapBuffers(window);
+}
+
+void Window::loadObjectShaders(const std::string &vertexFile, const std::string &fragmentFile)
+{
+    objectShader = load_shader(vertexFile,fragmentFile);
+}
+
+void Window::loadLightShaders(const std::string &vertexFile, const std::string &fragmentFile)
+{
+    lightShader = load_shader(vertexFile,fragmentFile);
+}
+
+void Window::setCamera(Camera *camera)
+{
+    Window::camera = camera;
 }

@@ -1,13 +1,13 @@
-#ifndef GRAPHICS_RECTANGLE_H_
-#define GRAPHICS_RECTANGLE_H_
+#ifndef GRAPHICS_LIGHT_H_
+#define GRAPHICS_LIGHT_H_
 
 #include "GameObject.h"
 
-class Rectangle:public GameObject
+class Light : public GameObject
 {
 public:
-    Rectangle();
-    ~Rectangle() override;
+    Light();
+    ~Light();
     void setVertices() override;
     void setupBufferVertex() override;
     void draw() override;

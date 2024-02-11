@@ -187,7 +187,7 @@ void Shader::setMat4(const std::string &name, const glm::mat4 &mat) const
     glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
 
-Shader* load_shader(std::string vertexFile, std::string fragmentFile) {
+Shader* load_shader(const std::string &vertexFile, const std::string &fragmentFile) {
 	// Reading Files
 	std::string vertexCode;
 	std::string fragmentCode;

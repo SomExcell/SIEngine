@@ -1,15 +1,15 @@
-#include "Rectangle.h"
+#include "Light.h"
 #include "window/Window.h"
 
-Rectangle::Rectangle()
+Light::Light()
 {
     setVertices();
     setupBufferVertex();
 }
 
-Rectangle::~Rectangle(){}
+Light::~Light(){}
 
-void Rectangle::setVertices()
+void Light::setVertices() 
 {
     GLfloat cube[288] = {
     // positions          // normals           // texture coords
@@ -59,72 +59,40 @@ void Rectangle::setVertices()
     std::copy(std::begin(cube),std::end(cube),std::begin(vertices));
 }
 
-void Rectangle::setupBufferVertex()
+void Light::setupBufferVertex()
 {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
-
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    // position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    // normal attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
     glBindVertexArray(0);
 }
 
-void Rectangle::draw()
+void Light::draw()
 {
     Window::objectShader->use();
-
-    glm::vec3 lightPos = glm::vec3(sin(glfwGetTime())*5,0.0f,cos(glfwGetTime())*5);
-
-    //Window::objectShader->setVec3("light.position",lightPos);
-    Window::objectShader->setVec3("viewPos",Window::camera->position);
-
-    Window::objectShader->setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
-    Window::objectShader->setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
-    Window::objectShader->setVec3("light.specular", 1.0f, 1.0f, 1.0f);
-
-    Window::objectShader->setFloat("material.shininess", 64.0f);
-
-    Window::objectShader->setMat4("projection",Window::camera->getProjection());
-	Window::objectShader->setMat4("view",Window::camera->getView());
+    Window::objectShader->setVec3("light.position",position);
+    
+    Window::lightShader->use();
+    Window::lightShader->setMat4("projection",Window::camera->getProjection());
+    Window::lightShader->setMat4("view",Window::camera->getView());
 
     model = glm::mat4(1.0f);
     model = glm::translate(model,position);
-    Window::objectShader->setMat4("model", model);
-    //Window::objectShader->setFloat("time",glfwGetTime());
+    model = glm::scale(model,glm::vec3(0.2f));
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D,diffuseMap->id);
-    
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D,specularMap->id);
-    
-    glActiveTexture(GL_TEXTURE2);
-    glBindTexture(GL_TEXTURE_2D, emissionMap->id);
+    Window::lightShader->setMat4("model",model);
 
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 36);
-    glBindVertexArray(0);
 }
 
-void Rectangle::setColor(GLfloat red, GLfloat green, GLfloat blue)
+void Light::setColor(GLfloat red, GLfloat green, GLfloat blue)
 {
-    for (size_t i = 0; i < 36; i++)
-    {
-        vertices[i*8+3] = red;
-        vertices[i*8+4] = green;
-        vertices[i*8+5] = blue;
-    } 
-    setupBufferVertex();
+    
 }
