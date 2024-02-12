@@ -1,10 +1,11 @@
 #ifndef WINDOW_WINDOW_H_
 #define WINDOW_WINDOW_H_
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include "graphics/Shader.h"
 #include "Camera.h"
 
-class GLFWwindow;
 
 class Window
 {
@@ -21,7 +22,6 @@ public:
     static void loadLightShaders(const std::string &vertexFile, const std::string &fragmentFile);
     static void setCamera(Camera *camera);
 
-public:
     static GLFWwindow *window;
 
     static unsigned int width;

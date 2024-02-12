@@ -102,7 +102,7 @@ void Rectangle::draw()
     model = glm::mat4(1.0f);
     model = glm::translate(model,position);
     Window::objectShader->setMat4("model", model);
-    //Window::objectShader->setFloat("time",glfwGetTime());
+    Window::objectShader->setFloat("time",glfwGetTime());
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D,diffuseMap->id);

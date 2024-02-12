@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include "Window.h"
 
-GLFWwindow* Window::window;
+GLFWwindow* Window::window = nullptr;
 
 Shader *Window::objectShader;
 Shader *Window::lightShader;

@@ -28,16 +28,18 @@ int main() {
 	Rectangle *rectangle = new Rectangle();
     rectangle->loadDiffuseMap("resources/images/container2.png");
     rectangle->loadSpecularMap("resources/images/container2_specular.png");
-    rectangle->loadEmissionMap("resources/images/texFire.png");
+    rectangle->loadEmissionMap("resources/images/matrix.jpg");
     
     Light *light = new Light();
-
 
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	
     glEnable(GL_DEPTH_TEST);
 
     glm::vec3 pos;
+	bool changePos = true;
+
+	glfwSwapInterval(0);
 
 	while (!Window::isShouldClose()){
 		
@@ -49,13 +51,20 @@ int main() {
 		if (Events::jpressed(GLFW_KEY_TAB)){
 			Events::toogleCursor();
 		}
+		if(Events::jpressed(GLFW_KEY_O))
+		{
+			changePos ? changePos = false : changePos = true;
+		}
 		
         FPSCounter::displayFPS();
         camera->move();
 		
         pos = glm::vec3(sin(glfwGetTime())*5,0.0f,cos(glfwGetTime())*5);
 
-        light->setPosition(pos);
+		if(changePos)
+		{
+			light->setPosition(pos);
+		}
 
         light->draw();
         rectangle->draw();
