@@ -28,14 +28,23 @@ add_executable(${PROJECT_NAME} src/main.cpp
 						src/graphics/Rectangle.h
 						src/graphics/Rectangle.cpp
 
-						src/graphics/Light.h
-						src/graphics/Light.cpp
-
 						src/loaders/png_loading.h
 						src/loaders/png_loading.cpp
 						
 						src/window/FPSCounter.h
 						src/window/FPSCounter.cpp
+
+						src/lighting/Light.h
+						src/lighting/Light.cpp
+
+						src/lighting/DirectionLight.h
+						src/lighting/DirectionLight.cpp
+
+						src/lighting/PointLight.h
+						src/lighting/PointLight.cpp
+
+						src/lighting/SpotLight.h
+						src/lighting/SpotLight.cpp
 
 						src/graphics/stb_image.h
 						)

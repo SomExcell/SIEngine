@@ -73,26 +73,36 @@ void Light::setupBufferVertex()
     glBindVertexArray(0);
 }
 
-void Light::draw()
+void Light::setDirection(glm::vec3 directionLight)
 {
-    Window::objectShader->use();
-    Window::objectShader->setVec3("light.position",position);
-    
-    Window::lightShader->use();
-    Window::lightShader->setMat4("projection",Window::camera->getProjection());
-    Window::lightShader->setMat4("view",Window::camera->getView());
-
-    model = glm::mat4(1.0f);
-    model = glm::translate(model,position);
-    model = glm::scale(model,glm::vec3(0.2f));
-
-    Window::lightShader->setMat4("model",model);
-
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
+    direction = directionLight;
 }
 
-void Light::setColor(GLfloat red, GLfloat green, GLfloat blue)
+void Light::setLights(glm::vec3 ambientLight, glm::vec3 diffuseLight, glm::vec3 specularLight)
 {
-    
+    ambient = ambientLight;
+    diffuse = diffuseLight;
+    specular = specularLight;
+}
+
+void Light::setAmbientLight(glm::vec3 ambientLight)
+{
+    ambient = ambientLight;
+}
+
+void Light::setDiffuseLight(glm::vec3 diffuseLight)
+{
+    diffuse = diffuseLight;
+}
+
+void Light::setSpecularLight(glm::vec3 specularLight)
+{
+    specular = specularLight;
+}
+
+void Light::setLightRange(float constant, float linear, float quadratic)
+{
+    this->constant = constant;
+    this->linear = linear;
+    this->quadratic = quadratic;
 }

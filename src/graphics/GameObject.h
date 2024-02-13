@@ -13,7 +13,7 @@
 class GameObject
 {
 public:
-    GameObject(){};
+    GameObject();
     virtual ~GameObject();
 
     virtual void loadTexture(const std::string &texturePath);
@@ -25,8 +25,11 @@ public:
     virtual void setupBufferVertex() = 0;
 
     virtual void draw() = 0;
-    virtual void setColor(GLfloat red, GLfloat green, GLfloat blue) = 0;
+    virtual void setColor(glm::vec4 color);
+
     virtual void setPosition(glm::vec3 position);
+    virtual void setScale(glm::vec3 scale);
+    virtual void setModel(glm::mat4 model);
 
     virtual GLuint getVAO();
     virtual GLuint getVBO();
@@ -38,8 +41,11 @@ protected:
 
     GLuint VAO,VBO;
 
-    glm::vec3 position{0.0f, 0.0f, 0.0f};
+    glm::vec3 position;
+    glm::vec3 scale;
     glm::mat4 model;
+
+    glm::vec4 color;
 };
 
 #endif

@@ -11,7 +11,6 @@ public:
     void setVertices() override;
     void setupBufferVertex() override;
     void draw() override;
-    void setColor(GLfloat red, GLfloat green, GLfloat blue) override;
 private:
     GLfloat vertices[288];
 };

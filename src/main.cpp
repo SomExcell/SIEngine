@@ -13,8 +13,10 @@
 #include "window/Camera.h"
 #include "loaders/png_loading.h"
 #include "graphics/Rectangle.h"
-#include "graphics/Light.h"
 #include "window/FPSCounter.h"
+#include "lighting/DirectionLight.h"
+#include "lighting/PointLight.h"
+#include "lighting/SpotLight.h"
 
 int main() {
 	Window::initialize(1280, 720, "SIEngine");
@@ -28,9 +30,15 @@ int main() {
 	Rectangle *rectangle = new Rectangle();
     rectangle->loadDiffuseMap("resources/images/container2.png");
     rectangle->loadSpecularMap("resources/images/container2_specular.png");
-    rectangle->loadEmissionMap("resources/images/matrix.jpg");
-    
-    Light *light = new Light();
+    //rectangle->loadEmissionMap("resources/images/matrix.jpg");
+    DirectionLight *dirLight = new DirectionLight();
+	PointLight *pointLight = new PointLight();
+	SpotLight *spotLight = new SpotLight();
+
+	pointLight->setPosition(glm::vec3(0.7f,  0.2f,  2.0f));
+	pointLight->setLights(glm::vec3(0.05f, 0.05f, 0.05f),glm::vec3(0.8f, 0.8f, 0.8f),glm::vec3(1.0f, 1.0f, 1.0f));
+	pointLight->setLightRange(1.0f,0.09f,0.032f);
+	pointLight->setScale(glm::vec3(0.2f));
 
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	
@@ -41,6 +49,9 @@ int main() {
 
 	glfwSwapInterval(0);
 
+	bool switchSpotLight = true;
+	bool switchDirLight = true;
+	bool switchPointLight = true;
 	while (!Window::isShouldClose()){
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -53,20 +64,29 @@ int main() {
 		}
 		if(Events::jpressed(GLFW_KEY_O))
 		{
-			changePos ? changePos = false : changePos = true;
+			switchSpotLight ? spotLight->disable() : spotLight->activate();
+			switchSpotLight ? switchSpotLight = false : switchSpotLight = true;
 		}
-		
+		if(Events::jpressed(GLFW_KEY_P))
+		{
+			switchDirLight ? dirLight->disable() : dirLight->activate();
+			switchDirLight ? switchDirLight = false : switchDirLight = true;
+		}
+		if(Events::jpressed(GLFW_KEY_I))
+		{
+			switchPointLight ? pointLight->disable() : pointLight->activate();
+			switchPointLight ? switchPointLight = false : switchPointLight = true;
+		}
+
         FPSCounter::displayFPS();
         camera->move();
-		
-        pos = glm::vec3(sin(glfwGetTime())*5,0.0f,cos(glfwGetTime())*5);
+		spotLight->setPosition(Window::camera->position);
+		spotLight->setDirection(Window::camera->front);
 
-		if(changePos)
-		{
-			light->setPosition(pos);
-		}
+        dirLight->draw();
+		spotLight->draw();
 
-        light->draw();
+		pointLight->draw();
         rectangle->draw();
         
 		Window::swapBuffers();

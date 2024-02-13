@@ -2,6 +2,12 @@
 
 #include "window/Window.h"
 
+GameObject::GameObject()
+{
+    model = glm::mat4(1.0f);
+    position = glm::vec3(0.0f);
+}
+
 GameObject::~GameObject()
 {
     delete texture;
@@ -23,6 +29,7 @@ void GameObject::loadDiffuseMap(const std::string &texturePath)
     Window::objectShader->use();
     Window::objectShader->setInt("material.diffuse", 0);
 }
+
 void GameObject::loadSpecularMap(const std::string &texturePath)
 {
     specularMap = load_texture(texturePath);
@@ -30,6 +37,7 @@ void GameObject::loadSpecularMap(const std::string &texturePath)
     Window::objectShader->setInt("material.specular", 1);
     
 }
+
 void GameObject::loadEmissionMap(const std::string &texturePath)
 {
     emissionMap = load_texture(texturePath);
@@ -37,9 +45,26 @@ void GameObject::loadEmissionMap(const std::string &texturePath)
     Window::objectShader->setInt("material.emission",2);
 }
 
+void GameObject::setColor(glm::vec4 color)
+{
+    this->color = color;
+}
+
 void GameObject::setPosition(glm::vec3 position)
 {
+    model = glm::translate(model,position);
     this->position = position;
+}
+
+void GameObject::setScale(glm::vec3 scale)
+{
+    model = glm::scale(model,scale);
+    this->scale = scale;
+}
+
+void GameObject::setModel(glm::mat4 model)
+{
+    this->model = model;
 }
 
 GLuint GameObject::getVAO()
