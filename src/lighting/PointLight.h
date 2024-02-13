@@ -10,6 +10,7 @@ public:
     ~PointLight(){};
 
     void draw() override;
+    void setColor(glm::vec4 color) override;
     void disable() override;
     void activate() override;
 

@@ -34,10 +34,22 @@ void PointLight::disable()
 {
     Window::objectShader->use();
     Window::objectShader->setBool("countPointLight",0);
+
+    Window::lightShader->use();
+    Window::lightShader->setBool("isActive",false);
 }
 
 void PointLight::activate()
 {
     Window::objectShader->use();
     Window::objectShader->setBool("countPointLight",1);
+
+    Window::lightShader->use();
+    Window::lightShader->setBool("isActive",true);
+}
+
+void PointLight::setColor(glm::vec4 color)
+{
+    Window::lightShader->use();
+    Window::lightShader->setVec3("color",color);
 }

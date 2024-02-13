@@ -36,9 +36,12 @@ int main() {
 	SpotLight *spotLight = new SpotLight();
 
 	pointLight->setPosition(glm::vec3(0.7f,  0.2f,  2.0f));
-	pointLight->setLights(glm::vec3(0.05f, 0.05f, 0.05f),glm::vec3(0.8f, 0.8f, 0.8f),glm::vec3(1.0f, 1.0f, 1.0f));
-	pointLight->setLightRange(1.0f,0.09f,0.032f);
+	pointLight->setLights(glm::vec3(0.1f, 0.1f, 0.8f),glm::vec3(0.1f, 0.1f, 0.8f),glm::vec3(0.1f, 0.1f, 0.9f));
+	pointLight->setColor(glm::vec4(0.5f,0.5f,0.8f,1.0f));
+	pointLight->setLightRange(1.0f,0.001f,0.032f);
 	pointLight->setScale(glm::vec3(0.2f));
+
+	dirLight->setLights(glm::vec3(0.3f, 0.3f, 0.3f),glm::vec3(0.9f, 0.9f, 0.9f),glm::vec3(0.9f, 0.9f, 0.9f));
 
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	
