@@ -5,15 +5,24 @@
 
 class Texture {
 public:
+	Texture(const unsigned int &id, const int &width, const int &height);
+	~Texture();
+
+public:
+
+	
+public:
+	void bind();
+	unsigned int getID();
+	int getWidth();
+	int getHeight();
+
+private:
 	unsigned int id;
 	int width;
 	int height;
-	Texture(unsigned int id, int width, int height);
-	~Texture();
-
-	void bind();
 };
 
-extern Texture* load_texture(std::string filename);
+extern Texture* load_texture(const std::string &filename);
 
 #endif 

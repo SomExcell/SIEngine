@@ -10,16 +10,15 @@ public:
     ~PointLight(){};
 
     void draw() override;
-    void setColor(glm::vec4 color) override;
+    void setColor(const glm::vec4 &color) override;
+
     void disable() override;
     void activate() override;
 
-    char count;
-
 private:
-    static int cLights;
-    static std::string countLights;
-    static bool isPointLight;
+    static int countLights;
+    int indexLight;
+    std::string indexLightStr;
 };
 
 #endif

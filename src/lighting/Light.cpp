@@ -73,36 +73,61 @@ void Light::setupBufferVertex()
     glBindVertexArray(0);
 }
 
-void Light::setDirection(glm::vec3 directionLight)
+void Light::setDirection(const glm::vec3 &directionLight)
 {
     direction = directionLight;
 }
 
-void Light::setLights(glm::vec3 ambientLight, glm::vec3 diffuseLight, glm::vec3 specularLight)
+void Light::setLights(const glm::vec3 &ambientLight, const glm::vec3 &diffuseLight, const glm::vec3 &specularLight)
 {
     ambient = ambientLight;
     diffuse = diffuseLight;
     specular = specularLight;
 }
 
-void Light::setAmbientLight(glm::vec3 ambientLight)
+void Light::setAmbientLight(const glm::vec3 &ambientLight)
 {
     ambient = ambientLight;
 }
 
-void Light::setDiffuseLight(glm::vec3 diffuseLight)
+void Light::setDiffuseLight(const glm::vec3 &diffuseLight)
 {
     diffuse = diffuseLight;
 }
 
-void Light::setSpecularLight(glm::vec3 specularLight)
+void Light::setSpecularLight(const glm::vec3 &specularLight)
 {
     specular = specularLight;
 }
 
-void Light::setLightRange(float constant, float linear, float quadratic)
+void Light::setConstant(const float &constant)
+{
+    this->constant = constant;
+}
+
+void Light::setLinear(const float &linear)
+{
+    this->linear = linear;
+}
+
+void Light::setQuadratic(const float &quadratic)
+{
+    this->quadratic = quadratic;
+}
+
+void Light::setLightRange(const float &constant, const float &linear, const float &quadratic)
 {
     this->constant = constant;
     this->linear = linear;
     this->quadratic = quadratic;
+}
+
+void Light::setcutOff(const float &cutOff)
+{
+    this->cutOff = cutOff;
+}
+
+void Light::setOuterCutOff(const float &outerCutOff)
+{
+    this->outerCutOff = outerCutOff;
 }

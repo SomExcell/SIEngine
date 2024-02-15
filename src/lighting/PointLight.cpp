@@ -1,24 +1,28 @@
 #include "PointLight.h"
 #include "window/Window.h"
 
-int PointLight::cLights = 0;
-std::string PointLight::countLights = "";
+int PointLight::countLights = 0;
 
 PointLight::PointLight()
 {
+    countLights++;
+    indexLight = countLights - 1;
+    indexLightStr = std::to_string(indexLight);
     activate();
+    Window::objectShader->use();
+    Window::objectShader->setInt("countPointLights",countLights);
 }
 
 void PointLight::draw()
 {
     Window::objectShader->use();
-    Window::objectShader->setVec3("pointLights[0].position", position);
-    Window::objectShader->setVec3("pointLights[0].ambient", ambient);
-    Window::objectShader->setVec3("pointLights[0].diffuse", diffuse);
-    Window::objectShader->setVec3("pointLights[0].specular", specular);
-    Window::objectShader->setFloat("pointLights[0].constant", constant);
-    Window::objectShader->setFloat("pointLights[0].linear", linear);
-    Window::objectShader->setFloat("pointLights[0].quadratic", quadratic);
+    Window::objectShader->setVec3("pointLights[" + indexLightStr + "].position", position);
+    Window::objectShader->setVec3("pointLights[" + indexLightStr + "].ambient", ambient);
+    Window::objectShader->setVec3("pointLights[" + indexLightStr + "].diffuse", diffuse);
+    Window::objectShader->setVec3("pointLights[" + indexLightStr + "].specular", specular);
+    Window::objectShader->setFloat("pointLights[" + indexLightStr +"].constant", constant);
+    Window::objectShader->setFloat("pointLights[" + indexLightStr +"].linear", linear);
+    Window::objectShader->setFloat("pointLights[" + indexLightStr + "].quadratic", quadratic);
 
     Window::lightShader->use();
     Window::lightShader->setMat4("projection",Window::camera->getProjection());
@@ -33,7 +37,7 @@ void PointLight::draw()
 void PointLight::disable()
 {
     Window::objectShader->use();
-    Window::objectShader->setBool("countPointLight",0);
+    Window::objectShader->setBool("pointLights[" + indexLightStr + "].isActive",false);
 
     Window::lightShader->use();
     Window::lightShader->setBool("isActive",false);
@@ -42,14 +46,14 @@ void PointLight::disable()
 void PointLight::activate()
 {
     Window::objectShader->use();
-    Window::objectShader->setBool("countPointLight",1);
+    Window::objectShader->setBool("pointLights[" + indexLightStr + "].isActive",true);
 
     Window::lightShader->use();
     Window::lightShader->setBool("isActive",true);
 }
 
-void PointLight::setColor(glm::vec4 color)
+void PointLight::setColor(const glm::vec4 &color)
 {
     Window::lightShader->use();
-    Window::lightShader->setVec3("color",color);
+    Window::lightShader->setVec4("color",color);
 }

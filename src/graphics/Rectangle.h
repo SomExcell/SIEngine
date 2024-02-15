@@ -8,9 +8,12 @@ class Rectangle:public GameObject
 public:
     Rectangle();
     ~Rectangle() override;
+    void draw() override;
+
+protected:
     void setVertices() override;
     void setupBufferVertex() override;
-    void draw() override;
+    
 private:
     GLfloat vertices[288];
 };

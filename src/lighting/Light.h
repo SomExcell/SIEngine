@@ -8,26 +8,28 @@ class Light : public GameObject
 public:
     Light();
     ~Light();
-    void setVertices() override;
-    void setupBufferVertex() override;
     void draw() = 0;
 
-    virtual void setDirection(glm::vec3 directionLight);
-    virtual void setAmbientLight(glm::vec3 ambientLight);
-    virtual void setDiffuseLight(glm::vec3 diffuseLight);
-    virtual void setSpecularLight(glm::vec3 specularLight);
-    virtual void setLights(glm::vec3 ambientLight, glm::vec3 diffuseLight, glm::vec3 specularLight);
+    virtual void setDirection(const glm::vec3 &directionLight);
+    virtual void setAmbientLight(const glm::vec3 &ambientLight);
+    virtual void setDiffuseLight(const glm::vec3 &diffuseLight);
+    virtual void setSpecularLight(const glm::vec3 &specularLight);
+    virtual void setLights(const glm::vec3 &ambientLight, const glm::vec3 &diffuseLight, const glm::vec3 &specularLight);
 
-    void setConstant(float constant);
-    void setLinear(float linear);
-    void setQuadratic(float quadratic);
-    virtual void setLightRange(float constant, float linear, float quadratic);
+    virtual void setConstant(const float &constant);
+    virtual void setLinear(const float &linear);
+    virtual void setQuadratic(const float &quadratic);
+    virtual void setLightRange(const float &constant, const float &linear, const float &quadratic);
 
-    void setcutOff(float cutOff);
-    void setOuterCutOff(float outerCutOff);
+    virtual void setcutOff(const float &cutOff);
+    virtual void setOuterCutOff(const float &outerCutOff);
 
     virtual void disable() = 0;
     virtual void activate() = 0;
+
+protected:
+    void setVertices() override;
+    void setupBufferVertex() override;
 
 protected:
     GLfloat vertices[288];

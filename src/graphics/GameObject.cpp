@@ -45,24 +45,24 @@ void GameObject::loadEmissionMap(const std::string &texturePath)
     Window::objectShader->setInt("material.emission",2);
 }
 
-void GameObject::setColor(glm::vec4 color)
+void GameObject::setColor(const glm::vec4 &color)
 {
     this->color = color;
 }
 
-void GameObject::setPosition(glm::vec3 position)
+void GameObject::setPosition(const glm::vec3 &position)
 {
     model = glm::translate(model,position);
     this->position = position;
 }
 
-void GameObject::setScale(glm::vec3 scale)
+void GameObject::setScale(const glm::vec3 &scale)
 {
     model = glm::scale(model,scale);
     this->scale = scale;
 }
 
-void GameObject::setModel(glm::mat4 model)
+void GameObject::setModel(const glm::mat4 &model)
 {
     this->model = model;
 }
@@ -75,4 +75,14 @@ GLuint GameObject::getVAO()
 GLuint GameObject::getVBO()
 {
     return VBO;
+}
+
+glm::vec4 GameObject::getColor()
+{
+    return color;
+}
+
+glm::vec3 GameObject::getPosition()
+{
+    return position;
 }

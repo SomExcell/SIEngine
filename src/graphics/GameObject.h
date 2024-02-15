@@ -21,18 +21,23 @@ public:
     virtual void loadSpecularMap(const std::string &texturePath);
     virtual void loadEmissionMap(const std::string &texturePath);
 
-    virtual void setVertices() = 0;
-    virtual void setupBufferVertex() = 0;
-
     virtual void draw() = 0;
-    virtual void setColor(glm::vec4 color);
+    virtual void setColor(const glm::vec4 &color);
 
-    virtual void setPosition(glm::vec3 position);
-    virtual void setScale(glm::vec3 scale);
-    virtual void setModel(glm::mat4 model);
+    virtual void setPosition(const glm::vec3 &position);
+    virtual void setScale(const glm::vec3 &scale);
+    virtual void setModel(const glm::mat4 &model);
 
     virtual GLuint getVAO();
     virtual GLuint getVBO();
+
+    virtual glm::vec4 getColor();
+    virtual glm::vec3 getPosition();
+
+protected:
+    virtual void setVertices() = 0;
+    virtual void setupBufferVertex() = 0;
+
 protected:
     Texture *texture;
     Texture *diffuseMap;

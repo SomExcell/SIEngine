@@ -24,15 +24,23 @@ int main() {
     Camera* camera = new Camera(glm::vec3(0,0,1), glm::radians(90.0f));
     Window::setCamera(camera);
 
-    Window::loadObjectShaders("resources/shaders/objectVS.txt","resources/shaders/objectFS.txt");
-    Window::loadLightShaders("resources/shaders/lightVS.txt","resources/shaders/lightFS.txt");
+    Window::loadObjectShaders("resources/shaders/objectVS.vs","resources/shaders/objectFS.fs");
+    Window::loadLightShaders("resources/shaders/lightVS.vs","resources/shaders/lightFS.fs");
 
 	Rectangle *rectangle = new Rectangle();
     rectangle->loadDiffuseMap("resources/images/container2.png");
     rectangle->loadSpecularMap("resources/images/container2_specular.png");
     //rectangle->loadEmissionMap("resources/images/matrix.jpg");
+//
+	Rectangle *rectangle2 = new Rectangle();
+	rectangle2->loadDiffuseMap("resources/images/container2.png");
+	rectangle2->loadSpecularMap("resources/images/container2_specular.png");
+	rectangle2->setPosition(glm::vec3(0,-2,0));
+
     DirectionLight *dirLight = new DirectionLight();
 	PointLight *pointLight = new PointLight();
+	PointLight *pointLight2 = new PointLight();
+
 	SpotLight *spotLight = new SpotLight();
 
 	pointLight->setPosition(glm::vec3(0.7f,  0.2f,  2.0f));
@@ -41,14 +49,17 @@ int main() {
 	pointLight->setLightRange(1.0f,0.001f,0.032f);
 	pointLight->setScale(glm::vec3(0.2f));
 
+	pointLight2->setPosition(glm::vec3(1.7f,  1.0f,  2.0f));
+	pointLight2->setLights(glm::vec3(0.8f, 0.1f, 0.1f),glm::vec3(0.8f, 0.1f, 0.1f),glm::vec3(0.8f, 0.1f, 0.1f));
+	pointLight2->setColor(glm::vec4(0.5f,0.5f,0.8f,1.0f));
+	pointLight2->setLightRange(1.0f,0.001f,0.032f);
+	pointLight2->setScale(glm::vec3(0.2f));
+
 	dirLight->setLights(glm::vec3(0.3f, 0.3f, 0.3f),glm::vec3(0.9f, 0.9f, 0.9f),glm::vec3(0.9f, 0.9f, 0.9f));
 
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	
     glEnable(GL_DEPTH_TEST);
-
-    glm::vec3 pos;
-	bool changePos = true;
 
 	glfwSwapInterval(0);
 
@@ -88,9 +99,11 @@ int main() {
 
         dirLight->draw();
 		spotLight->draw();
-
 		pointLight->draw();
+		pointLight2->draw();
+
         rectangle->draw();
+		rectangle2->draw();
         
 		Window::swapBuffers();
 		Events::pullEvents();

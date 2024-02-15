@@ -1,24 +1,32 @@
 #include "SpotLight.h"
 #include "window/Window.h"
 
+int SpotLight::countLights = 0;
+
 SpotLight::SpotLight()
 {
+    countLights++;
+    indexLight = countLights - 1;
+    indexLightStr = std::to_string(indexLight);
     activate();
+    Window::objectShader->use();
+    Window::objectShader->setInt("countSpotLights",countLights);
+
 }
 
 void SpotLight::draw()
 {
     Window::objectShader->use();
-    Window::objectShader->setVec3("spotLight.position", position);
-    Window::objectShader->setVec3("spotLight.direction", direction);
-    Window::objectShader->setVec3("spotLight.ambient", ambient);
-    Window::objectShader->setVec3("spotLight.diffuse", diffuse);
-    Window::objectShader->setVec3("spotLight.specular", specular);
-    Window::objectShader->setFloat("spotLight.constant", constant);
-    Window::objectShader->setFloat("spotLight.linear", linear);
-    Window::objectShader->setFloat("spotLight.quadratic", quadratic);
-    Window::objectShader->setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
-    Window::objectShader->setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
+    Window::objectShader->setVec3("spotLights[" + indexLightStr + "].position", position);
+    Window::objectShader->setVec3("spotLights[" + indexLightStr + "].direction", direction);
+    Window::objectShader->setVec3("spotLights[" + indexLightStr + "].ambient", ambient);
+    Window::objectShader->setVec3("spotLights[" + indexLightStr + "].diffuse", diffuse);
+    Window::objectShader->setVec3("spotLights[" + indexLightStr + "].specular", specular);
+    Window::objectShader->setFloat("spotLights[" + indexLightStr + "].constant", constant);
+    Window::objectShader->setFloat("spotLights[" + indexLightStr + "].linear", linear);
+    Window::objectShader->setFloat("spotLights[" + indexLightStr + "].quadratic", quadratic);
+    Window::objectShader->setFloat("spotLights[" + indexLightStr + "].cutOff", glm::cos(glm::radians(12.5f)));
+    Window::objectShader->setFloat("spotLights[" + indexLightStr + "].outerCutOff", glm::cos(glm::radians(15.0f)));
 
     Window::lightShader->use();
     Window::lightShader->setMat4("projection",Window::camera->getProjection());
@@ -29,11 +37,11 @@ void SpotLight::draw()
 void SpotLight::disable()
 {
     Window::objectShader->use();
-    Window::objectShader->setBool("isSpotLight",false);
+    Window::objectShader->setBool("spotLights[" + indexLightStr + "].isActive",false);
 }
 
 void SpotLight::activate()
 {
     Window::objectShader->use();
-    Window::objectShader->setBool("isSpotLight",true);
+    Window::objectShader->setBool("spotLights[" + indexLightStr + "].isActive",true);
 }

@@ -25,6 +25,8 @@ struct PointLight {
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+
+    bool isActive;
 };
 
 struct SpotLight
@@ -41,9 +43,11 @@ struct SpotLight
     vec3 ambient;
     vec3 diffuse;
     vec3 specular;
+
+    bool isActive;
 };
 
-#define NR_POINT_LIGHTS 4
+#define NR_LIGHTS 100
 
 in vec3 FragPos;
 in vec3 Normal;
@@ -54,13 +58,16 @@ out vec4 FragColor;
 uniform vec3 viewPos;
 
 uniform DirLight dirLight;
-uniform PointLight pointLights[NR_POINT_LIGHTS];
-uniform SpotLight spotLight;
+
+uniform int countPointLights;
+uniform PointLight pointLights[NR_LIGHTS];
+
+uniform int countSpotLights;
+uniform SpotLight spotLights[NR_LIGHTS];
+
 uniform Material material;
 
 uniform bool isDirLight = false;
-uniform bool isSpotLight = false;
-uniform int countPointLight = 0;
 
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
@@ -79,18 +86,21 @@ void main()
     }
 
     //point lights
-    if(countPointLight > 0 )
+    for(int i = 0; i < countPointLights; i++)
     {
-        for(int i = 0; i < 1; i++)
+        if(pointLights[i].isActive)
         {
             result += CalcPointLight(pointLights[i],norm, FragPos, viewDir);
         }
     }
 
     //spotLight
-    if(isSpotLight)
+    for(int i = 0; i < countSpotLights; i++)
     {
-        result += CalcSpotLight(spotLight, norm, FragPos, viewDir);
+        if(spotLights[i].isActive)
+        {
+            result += CalcSpotLight(spotLights[i], norm, FragPos, viewDir);
+        }
     }
 
     FragColor = vec4(result,1.0);

@@ -8,7 +8,7 @@ void main()
 {
     if(isActive)
     {
-        FragColor = vec4(color);
+        FragColor = color;
     }
     else if(!isActive)
     {

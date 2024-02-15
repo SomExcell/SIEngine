@@ -94,10 +94,10 @@ void Rectangle::draw()
     Window::objectShader->setMat4("model", model);
 
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D,diffuseMap->id);
+    glBindTexture(GL_TEXTURE_2D,diffuseMap->getID());
     
     glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D,specularMap->id);
+    glBindTexture(GL_TEXTURE_2D,specularMap->getID());
 
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 36);

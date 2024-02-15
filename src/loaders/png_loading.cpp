@@ -7,7 +7,7 @@
 
 #include "../graphics/Texture.h"
 
-Texture* load_texture(std::string filename)
+Texture* load_texture(const std::string &filename)
 {
     GLuint texture;
 	glGenTextures(1,&texture);

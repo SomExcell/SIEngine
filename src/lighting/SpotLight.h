@@ -12,6 +12,11 @@ public:
     void draw() override;
     void disable() override;
     void activate() override;
+
+private:
+    static int countLights;
+    int indexLight;
+    std::string indexLightStr;
 };
 
 #endif
