@@ -8,8 +8,11 @@ public:
 	Texture(const unsigned int &id, const int &width, const int &height);
 	~Texture();
 
-public:
+	Texture(const Texture& rhs);
+	Texture(Texture&& rhs);
 
+	Texture& operator=(const Texture& rhs);
+	Texture& operator=(Texture&& rhs);
 	
 public:
 	void bind();

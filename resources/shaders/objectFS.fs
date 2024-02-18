@@ -47,7 +47,7 @@ struct SpotLight
     bool isActive;
 };
 
-#define NR_LIGHTS 100
+#define NR_LIGHTS 4
 
 in vec3 FragPos;
 in vec3 Normal;

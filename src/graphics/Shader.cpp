@@ -12,8 +12,7 @@ Shader::Shader(const std::string &vertexShader, const std::string &fragmentShade
     load_shader(vertexShader,fragmentShader);
 }
 
-Shader::Shader(unsigned int id) : ID(id){
-}
+Shader::Shader(unsigned int id) : ID(id){}
 
 Shader& Shader::operator=(Shader&& rhs) noexcept
 {

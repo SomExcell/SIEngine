@@ -30,12 +30,6 @@ int main() {
 	Rectangle *rectangle = new Rectangle();
     rectangle->loadDiffuseMap("resources/images/container2.png");
     rectangle->loadSpecularMap("resources/images/container2_specular.png");
-    //rectangle->loadEmissionMap("resources/images/matrix.jpg");
-//
-	Rectangle *rectangle2 = new Rectangle();
-	rectangle2->loadDiffuseMap("resources/images/container2.png");
-	rectangle2->loadSpecularMap("resources/images/container2_specular.png");
-	rectangle2->setPosition(glm::vec3(0,-2,0));
 
     DirectionLight *dirLight = new DirectionLight();
 	PointLight *pointLight = new PointLight();
@@ -102,8 +96,23 @@ int main() {
 		pointLight->draw();
 		pointLight2->draw();
 
-        rectangle->draw();
-		rectangle2->draw();
+		/*
+		for (size_t i = 0; i < 10; i++)
+		{
+			for (size_t j = 0; j < 10; j++)
+			{
+				for (size_t z = 0; z < 1; z++)
+				{
+					rectangle->setModel(glm::mat4(1.0f));
+					rectangle->setPosition(glm::vec3(i,j,z));
+					rectangle->draw();
+				}
+			}
+		}
+		*/
+		rectangle->draw();
+		
+		
         
 		Window::swapBuffers();
 		Events::pullEvents();

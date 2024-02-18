@@ -13,7 +13,7 @@ unsigned int FPSCounter::counter = 0;
 
 void FPSCounter::displayFPS()
 {
-    crntTime = glfwGetTime();
+    crntTime = Window::camera->currentTime;
     timeDiff = crntTime - prevTime;
     counter++;
     if(timeDiff >= 1.0 / 30.0)
