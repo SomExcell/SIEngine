@@ -7,7 +7,7 @@
 
 #include "../graphics/Texture.h"
 
-Texture* load_texture(const std::string &filename)
+Texture* load_texture(const std::string &path)
 {
     GLuint texture;
 	glGenTextures(1,&texture);
@@ -21,7 +21,7 @@ Texture* load_texture(const std::string &filename)
     // load and generate the texture
     GLint width,height,nrChannels;
     stbi_set_flip_vertically_on_load(true);
-    unsigned char *data = stbi_load(filename.c_str(),&width,&height,&nrChannels,0);
+    unsigned char *data = stbi_load(path.c_str(),&width,&height,&nrChannels,0);
     if(data)
     {
         GLenum format;
@@ -41,5 +41,5 @@ Texture* load_texture(const std::string &filename)
     {
         std::cerr << "Failed to load texture" << std::endl;
     }
-	return new Texture(texture, width, height);
+	return new Texture(texture, path,DIFFUSE);
 }

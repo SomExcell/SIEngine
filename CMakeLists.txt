@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.22 FATAL_ERROR)
 set(PROJECT_NAME SIEngine)
 project(${PROJECT_NAME})
 
-include_directories("header/")
 include_directories("src/")
 
 add_executable(${PROJECT_NAME} src/main.cpp
@@ -15,6 +14,9 @@ add_executable(${PROJECT_NAME} src/main.cpp
 
 						src/window/Camera.h
 						src/window/Camera.cpp
+
+						src/window/FPSCounter.h
+						src/window/FPSCounter.cpp
 
 						src/graphics/Shader.h
 						src/graphics/Shader.cpp
@@ -28,11 +30,14 @@ add_executable(${PROJECT_NAME} src/main.cpp
 						src/graphics/Rectangle.h
 						src/graphics/Rectangle.cpp
 
+						src/graphics/Mesh.h
+						src/graphics/Mesh.cpp
+
+						src/graphics/Model.h
+						src/graphics/Model.cpp
+
 						src/loaders/png_loading.h
 						src/loaders/png_loading.cpp
-						
-						src/window/FPSCounter.h
-						src/window/FPSCounter.cpp
 
 						src/lighting/Light.h
 						src/lighting/Light.cpp

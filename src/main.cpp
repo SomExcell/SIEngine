@@ -17,6 +17,7 @@
 #include "lighting/DirectionLight.h"
 #include "lighting/PointLight.h"
 #include "lighting/SpotLight.h"
+#include "graphics/Model.h"
 
 int main() {
 	Window::initialize(1280, 720, "SIEngine");
@@ -27,13 +28,14 @@ int main() {
     Window::loadObjectShaders("resources/shaders/objectVS.vs","resources/shaders/objectFS.fs");
     Window::loadLightShaders("resources/shaders/lightVS.vs","resources/shaders/lightFS.fs");
 
-	Rectangle *rectangle = new Rectangle();
-    rectangle->loadDiffuseMap("resources/images/container2.png");
-    rectangle->loadSpecularMap("resources/images/container2_specular.png");
+	Model model("resources/models/backpack/backpack.obj");
+
+	//Rectangle *rectangle = new Rectangle();
+    //rectangle->loadDiffuseMap("resources/images/container2.png");
+    //rectangle->loadSpecularMap("resources/images/container2_specular.png");
 
     DirectionLight *dirLight = new DirectionLight();
 	PointLight *pointLight = new PointLight();
-	PointLight *pointLight2 = new PointLight();
 
 	SpotLight *spotLight = new SpotLight();
 
@@ -42,12 +44,6 @@ int main() {
 	pointLight->setColor(glm::vec4(0.5f,0.5f,0.8f,1.0f));
 	pointLight->setLightRange(1.0f,0.001f,0.032f);
 	pointLight->setScale(glm::vec3(0.2f));
-
-	pointLight2->setPosition(glm::vec3(1.7f,  1.0f,  2.0f));
-	pointLight2->setLights(glm::vec3(0.8f, 0.1f, 0.1f),glm::vec3(0.8f, 0.1f, 0.1f),glm::vec3(0.8f, 0.1f, 0.1f));
-	pointLight2->setColor(glm::vec4(0.5f,0.5f,0.8f,1.0f));
-	pointLight2->setLightRange(1.0f,0.001f,0.032f);
-	pointLight2->setScale(glm::vec3(0.2f));
 
 	dirLight->setLights(glm::vec3(0.3f, 0.3f, 0.3f),glm::vec3(0.9f, 0.9f, 0.9f),glm::vec3(0.9f, 0.9f, 0.9f));
 
@@ -94,7 +90,6 @@ int main() {
         dirLight->draw();
 		spotLight->draw();
 		pointLight->draw();
-		pointLight2->draw();
 
 		/*
 		for (size_t i = 0; i < 10; i++)
@@ -110,8 +105,8 @@ int main() {
 			}
 		}
 		*/
-		rectangle->draw();
-		
+		//rectangle->draw();
+		model.draw();
 		
         
 		Window::swapBuffers();

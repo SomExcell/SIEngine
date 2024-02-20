@@ -5,6 +5,6 @@
 
 class Texture;
 
-extern Texture* load_texture(const std::string &filename);
+extern Texture* load_texture(const std::string &path);
 
 #endif 

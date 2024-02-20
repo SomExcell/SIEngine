@@ -39,10 +39,10 @@ protected:
     virtual void setupBufferVertex() = 0;
 
 protected:
-    Texture *texture;
-    Texture *diffuseMap;
-    Texture *specularMap;
-    Texture *emissionMap;
+    Texture* texture;
+    Texture* diffuseMap;
+    Texture* specularMap;
+    Texture* emissionMap;
 
     GLuint VAO,VBO;
 

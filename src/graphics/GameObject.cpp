@@ -10,10 +10,6 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-    delete texture;
-    delete diffuseMap;
-    delete specularMap;
-    delete emissionMap;
     glDeleteBuffers(1, &VBO);
 	glDeleteVertexArrays(1, &VAO);
 }
