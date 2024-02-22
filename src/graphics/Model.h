@@ -29,11 +29,11 @@ private:
 
     Mesh processMesh(aiMesh *mesh, const aiScene *scene);
 
-    std::vector<TextureTwo> loadMaterialTextures(aiMaterial *material, aiTextureType type, std::string typeName);
+    std::vector<Texture> loadMaterialTextures(aiMaterial *material, aiTextureType type, TextureType typeName);
 
 private:
     std::vector<Mesh> meshes;
-    std::vector<TextureTwo> textures_loaded;
+    std::vector<Texture> textures_loaded;
     std::string directory;
     bool gammaCorrection;
     

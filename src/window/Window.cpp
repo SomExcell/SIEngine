@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Window.h"
+#include "graphics/stb_image.h"
 
 GLFWwindow* Window::window = nullptr;
 
@@ -20,7 +21,7 @@ int Window::initialize(int width, int height, const char* title)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-
+    stbi_set_flip_vertically_on_load(true);
     if (!glfwInit())
     {
         std::cerr << "Failed to initialize glfw" << std::endl;

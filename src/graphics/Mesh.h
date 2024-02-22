@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 
+#include "Texture.h"
+
 struct Vertex
 {
     glm::vec3 postition;
@@ -21,17 +23,10 @@ struct Vertex
     float m_weights[4];
 };
 
-struct TextureTwo
-{
-    unsigned int id;
-    std::string type;
-    std::string path;
-};
-
 class Mesh
 {
 public:
-    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<TextureTwo> textures);
+    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
     void draw();
 
 private:
@@ -40,7 +35,7 @@ private:
 private:
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
-    std::vector<TextureTwo> textures;
+    std::vector<Texture> textures;
 
     unsigned int VBO, VAO, EBO;
 };

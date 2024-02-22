@@ -24,7 +24,7 @@ int main() {
 	Events::initialize();
     Camera* camera = new Camera(glm::vec3(0,0,1), glm::radians(90.0f));
     Window::setCamera(camera);
-
+	
     Window::loadObjectShaders("resources/shaders/objectVS.vs","resources/shaders/objectFS.fs");
     Window::loadLightShaders("resources/shaders/lightVS.vs","resources/shaders/lightFS.fs");
 
@@ -56,6 +56,8 @@ int main() {
 	bool switchSpotLight = true;
 	bool switchDirLight = true;
 	bool switchPointLight = true;
+	
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	while (!Window::isShouldClose()){
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -107,7 +109,6 @@ int main() {
 		*/
 		//rectangle->draw();
 		model.draw();
-		
         
 		Window::swapBuffers();
 		Events::pullEvents();

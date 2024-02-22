@@ -1,6 +1,7 @@
 #ifndef GRAPHICS_TEXTURE_H_
 #define GRAPHICS_TEXTURE_H_
 
+#include <iostream>
 #include <string>
 
 enum TextureType
@@ -14,6 +15,7 @@ enum TextureType
 class Texture {
 public:
 	Texture(){};
+	Texture(const std::string &path);
 	Texture(const unsigned int &id, const std::string &path, const TextureType &type);
 	~Texture();
 
@@ -25,21 +27,24 @@ public:
 	
 public:
 	void bind();
+	void loadTexture(const std::string &path);
+	std::string findNameFile(const std::string &path);
+
 	unsigned int getID();
 	int getWidth();
 	int getHeight();
 	TextureType getType();
 	std::string getPath();
+	std::string getNameFile();
 
-	void setType(TextureType type);
-	void setID(unsigned int);
-	void setPath(std::string path);
+	void setType(const TextureType &type);
 
 private:
 	unsigned int id;
 	int width;
 	int height;
 	std::string path;
+	std::string nameFile;
 	TextureType type;
 };
 
