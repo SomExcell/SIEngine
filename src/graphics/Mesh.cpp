@@ -1,7 +1,7 @@
 #include "Mesh.h"
 #include "window/Window.h"
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<GLuint> indices, std::vector<Texture> textures):vertices(vertices),indices(indices),textures(textures)
+Mesh::Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, const std::vector<Texture> &textures):vertices(vertices),indices(indices),textures(textures)
 {
     setupMesh();
 }
@@ -87,7 +87,7 @@ void Mesh::draw()
         // and finally bind the texture
         textures[i].bind();
     }
-    glm::mat4 model = glm::mat4(1.0f);
+
     Window::objectShader->setVec3("viewPos",Window::camera->position);
     Window::objectShader->setFloat("material.shininess",32.0f);
 

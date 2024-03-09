@@ -10,7 +10,7 @@
 class Window
 {
 public:
-    static int initialize(int width, int height, const char* title);
+    static int initialize(const int &width, const int &height, const char* title);
     static void terminate();
 
     static void setCursorMode(int mode);
@@ -22,6 +22,8 @@ public:
     static void loadLightShaders(const std::string &vertexFile, const std::string &fragmentFile);
     static void setCamera(Camera *camera);
 
+    static void displayFPS();
+
     static GLFWwindow *window;
 
     static unsigned int width;
@@ -31,6 +33,11 @@ public:
     static Shader *lightShader;
 
     static Camera *camera;
+
+    static double prevTime;
+    static double crntTime;
+    static double timeDiff;
+    static unsigned int counter;
 };
 
 #endif

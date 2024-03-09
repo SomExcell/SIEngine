@@ -58,6 +58,13 @@ void GameObject::setScale(const glm::vec3 &scale)
     this->scale = scale;
 }
 
+void GameObject::setRotate(const float& angle, const glm::vec3 &rotate)
+{
+    model = glm::rotate(model,glm::radians(angle), rotate);
+    this->angle = angle;
+    this->rotate = rotate;
+}
+
 void GameObject::setModel(const glm::mat4 &model)
 {
     this->model = model;

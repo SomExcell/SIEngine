@@ -27,6 +27,7 @@ public:
     virtual void setPosition(const glm::vec3 &position);
     virtual void setScale(const glm::vec3 &scale);
     virtual void setModel(const glm::mat4 &model);
+    virtual void setRotate(const float &angle, const glm::vec3 &rotate);
 
     virtual GLuint getVAO();
     virtual GLuint getVBO();
@@ -35,8 +36,8 @@ public:
     virtual glm::vec3 getPosition();
 
 protected:
-    virtual void setVertices() = 0;
-    virtual void setupBufferVertex() = 0;
+    virtual void setVertices(){};
+    virtual void setupBufferVertex(){};
 
 protected:
     Texture* texture;
@@ -44,10 +45,12 @@ protected:
     Texture* specularMap;
     Texture* emissionMap;
 
-    GLuint VAO,VBO;
+    unsigned int VBO = 0, VAO = 0, EBO = 0;
 
     glm::vec3 position;
     glm::vec3 scale;
+    glm::vec3 rotate;
+    float angle;
     glm::mat4 model;
 
     glm::vec4 color;

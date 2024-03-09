@@ -13,7 +13,6 @@
 #include "window/Camera.h"
 #include "loaders/png_loading.h"
 #include "graphics/Rectangle.h"
-#include "window/FPSCounter.h"
 #include "lighting/DirectionLight.h"
 #include "lighting/PointLight.h"
 #include "lighting/SpotLight.h"
@@ -28,15 +27,18 @@ int main() {
     Window::loadObjectShaders("resources/shaders/objectVS.vs","resources/shaders/objectFS.fs");
     Window::loadLightShaders("resources/shaders/lightVS.vs","resources/shaders/lightFS.fs");
 
-	Model model("resources/models/backpack/backpack.obj");
+	//Model model("resources/models/backpack/backpack.obj");
+	Model sphere("resources/models/shapes/sphere.obj");
+	
+	sphere.setScale(glm::vec3(0.1));
 
-	//Rectangle *rectangle = new Rectangle();
-    //rectangle->loadDiffuseMap("resources/images/container2.png");
-    //rectangle->loadSpecularMap("resources/images/container2_specular.png");
+
+	Rectangle *rectangle = new Rectangle();
+    rectangle->loadDiffuseMap("resources/images/container2.png");
+    rectangle->loadSpecularMap("resources/images/container2_specular.png");
 
     DirectionLight *dirLight = new DirectionLight();
 	PointLight *pointLight = new PointLight();
-
 	SpotLight *spotLight = new SpotLight();
 
 	pointLight->setPosition(glm::vec3(0.7f,  0.2f,  2.0f));
@@ -84,7 +86,7 @@ int main() {
 			switchPointLight ? switchPointLight = false : switchPointLight = true;
 		}
 
-        FPSCounter::displayFPS();
+        Window::displayFPS();
         camera->move();
 		spotLight->setPosition(Window::camera->position);
 		spotLight->setDirection(Window::camera->front);
@@ -93,23 +95,11 @@ int main() {
 		spotLight->draw();
 		pointLight->draw();
 
-		/*
-		for (size_t i = 0; i < 10; i++)
-		{
-			for (size_t j = 0; j < 10; j++)
-			{
-				for (size_t z = 0; z < 1; z++)
-				{
-					rectangle->setModel(glm::mat4(1.0f));
-					rectangle->setPosition(glm::vec3(i,j,z));
-					rectangle->draw();
-				}
-			}
-		}
-		*/
+		sphere.setPosition(glm::vec3(sin(glfwGetTime())*0.01,0,0));
 		//rectangle->draw();
-		model.draw();
-        
+        sphere.draw();
+
+
 		Window::swapBuffers();
 		Events::pullEvents();
 	}

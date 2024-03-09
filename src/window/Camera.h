@@ -6,9 +6,9 @@
 class Camera
 {
 public:
-    Camera(glm::vec3 position, float fov);
+    Camera(const glm::vec3 &position, const float &fov);
 
-    void rotate(float x, float y, float z);
+    void rotate(const float &x, const float &y, const float &z);
     void move();
     void setPosition(glm::vec3 position);
     void setFront(glm::vec3 front);

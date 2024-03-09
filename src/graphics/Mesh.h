@@ -11,6 +11,7 @@
 #include <vector>
 
 #include "Texture.h"
+#include "GameObject.h"
 
 struct Vertex
 {
@@ -23,11 +24,11 @@ struct Vertex
     float m_weights[4];
 };
 
-class Mesh
+class Mesh : public GameObject
 {
 public:
-    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
-    void draw();
+    Mesh(const std::vector<Vertex> &vertices, const std::vector<unsigned int> &indices, const std::vector<Texture> &textures);
+    void draw() override;
 
 private:
     void setupMesh();

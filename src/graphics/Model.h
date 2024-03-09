@@ -23,6 +23,11 @@ public:
 public:
     void draw();
 
+    void setScale(const glm::vec3 &scale);
+    void setRotate(const float& angle, const glm::vec3 &rotate);
+    void setPosition(const glm::vec3 &position);
+    void setModel(const glm::mat4 &model);
+    
 private:
     void loadModel(const std::string &path);
     void processNode(aiNode *node, const aiScene *scene);
@@ -38,7 +43,5 @@ private:
     bool gammaCorrection;
     
 };
-
-unsigned int TextureFromFile(const char *path, const std::string &directory);
 
 #endif

@@ -29,4 +29,4 @@ public:
 	static void toogleCursor();
 };
 
-#endif /* WINDOW_EVENTS_H_ */
+#endif 

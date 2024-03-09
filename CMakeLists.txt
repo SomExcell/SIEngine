@@ -15,9 +15,6 @@ add_executable(${PROJECT_NAME} src/main.cpp
 						src/window/Camera.h
 						src/window/Camera.cpp
 
-						src/window/FPSCounter.h
-						src/window/FPSCounter.cpp
-
 						src/graphics/Shader.h
 						src/graphics/Shader.cpp
 

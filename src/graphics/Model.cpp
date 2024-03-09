@@ -8,7 +8,7 @@ Model::Model(const std::string &path)
 
 void Model::draw()
 {
-    for (size_t i = 0; i < meshes.size(); i++)
+    for (size_t i = 0; i < meshes.size(); ++i)
     {
         meshes[i].draw();
     }   
@@ -162,4 +162,37 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *material, aiTexture
     }
     return textures;
     
+}
+
+void Model::setScale(const glm::vec3 &scale)
+{
+    for (size_t i = 0; i < meshes.size(); ++i)
+    {
+        meshes[i].setScale(scale);
+    }
+}
+
+void Model::setRotate(const float& angle, const glm::vec3 &rotate)
+{
+    for (size_t i = 0; i < meshes.size(); ++i)
+    {
+        meshes[i].setRotate(angle,rotate);
+    }
+    
+}
+
+void Model::setPosition(const glm::vec3 &position)
+{
+    for (size_t i = 0; i < meshes.size(); ++i)
+    {
+        meshes[i].setPosition(position);
+    }
+}
+
+void Model::setModel(const glm::mat4 &model)
+{
+    for (size_t i = 0; i < meshes.size(); ++i)
+    {
+        meshes[i].setModel(model);
+    }
 }

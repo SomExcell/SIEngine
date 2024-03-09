@@ -1,11 +1,10 @@
 #include "Camera.h"
-#include "Window.h"
 #include "Events.h"
 
 #include <GLFW/glfw3.h>
 #include <glm/ext.hpp>
 
-Camera::Camera(glm::vec3 position, float fov) : position(position), fov(fov), rotation(1.0f) {
+Camera::Camera(const glm::vec3 &position, const float &fov) : position(position), fov(fov), rotation(1.0f) {
 	lastTime = glfwGetTime();
 	updateVectors();
 }
@@ -16,7 +15,7 @@ void Camera::updateVectors(){
 	up = glm::vec3(rotation * glm::vec4(0,1,0,1));
 }
 
-void Camera::rotate(float x, float y, float z){
+void Camera::rotate(const float &x, const float &y, const float &z){
 	rotation = glm::rotate(rotation, z, glm::vec3(0,0,1));
 	rotation = glm::rotate(rotation, y, glm::vec3(0,1,0));
 	rotation = glm::rotate(rotation, x, glm::vec3(1,0,0));

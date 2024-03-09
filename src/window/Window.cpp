@@ -9,12 +9,17 @@ GLFWwindow* Window::window = nullptr;
 Shader *Window::objectShader;
 Shader *Window::lightShader;
 
-Camera *Window::camera;
+Camera *Window::camera = nullptr;
 
 unsigned int Window::width = 0;
 unsigned int Window::height = 0;
 
-int Window::initialize(int width, int height, const char* title)
+unsigned int Window::counter = 0;
+double Window::prevTime = glfwGetTime();
+double Window::crntTime = 0.0;
+double Window::timeDiff = 0.0;
+
+int Window::initialize(const int &width, const int &height, const char* title)
 {
     glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -89,4 +94,21 @@ void Window::loadLightShaders(const std::string &vertexFile, const std::string &
 void Window::setCamera(Camera *camera)
 {
     Window::camera = camera;
+}
+
+void Window::displayFPS()
+{
+    crntTime = glfwGetTime();
+    timeDiff = crntTime - prevTime;
+    counter++;
+    if(timeDiff >= 1.0 / 30.0)
+    {
+        std::string FPS = std::to_string((1.0 / timeDiff) * counter);
+        std::string ms = std::to_string((timeDiff / counter) * 1000);
+        std::string newTitle = "SIEngine - " + FPS + "FPS / " + ms + "ms";
+        glfwSetWindowTitle(Window::window, newTitle.c_str());
+        counter = 0;
+        prevTime = crntTime;
+        
+    }
 }
