@@ -10,8 +10,8 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-    glDeleteBuffers(1, &VBO);
-	glDeleteVertexArrays(1, &VAO);
+    //glDeleteBuffers(1, &VBO);
+	//glDeleteVertexArrays(1, &VAO);
 }
 
 void GameObject::loadTexture(const std::string &texturePath)
@@ -70,6 +70,21 @@ void GameObject::setModel(const glm::mat4 &model)
     this->model = model;
 }
 
+glm::vec3 GameObject::getPosition()
+{
+    return position;
+}
+
+glm::vec3 GameObject::getScale()
+{
+    return scale;
+}
+
+glm::mat4 GameObject::getModel()
+{
+    return model;
+}
+
 GLuint GameObject::getVAO()
 {
     return VAO;
@@ -83,9 +98,4 @@ GLuint GameObject::getVBO()
 glm::vec4 GameObject::getColor()
 {
     return color;
-}
-
-glm::vec3 GameObject::getPosition()
-{
-    return position;
 }

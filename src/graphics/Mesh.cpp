@@ -83,23 +83,52 @@ void Mesh::draw()
             number = std::to_string(heightNr++);
         }
         // now set the sampler to the correct texture unit
-        Window::objectShader->setInt(name,i);
+        //Window::objectShader->setInt(name,i);
         // and finally bind the texture
         textures[i].bind();
     }
 
-    Window::objectShader->setVec3("viewPos",Window::camera->position);
+    Window::objectShader->use();
     Window::objectShader->setFloat("material.shininess",32.0f);
-
-    Window::objectShader->setMat4("projection",Window::camera->getProjection());
-	Window::objectShader->setMat4("view",Window::camera->getView());
-
     Window::objectShader->setMat4("model", model);
+    if(outline)
+    {
+        glStencilFunc(GL_ALWAYS, 1, 0xFF);
+        glStencilMask(0xFF);
+        // drawing object
+        glBindVertexArray(VAO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, diffuseMap->getID());
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, specularMap->getID());
+        glDrawArrays(GL_TRIANGLES, 0, 36);
 
-    // draw mesh
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+        // 2nd. drawing outlining
+        glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+        glStencilMask(0x00);
+        glDisable(GL_DEPTH_TEST);
+        Window::outlineShader->use();
+        float scale = 1.1f;
+		
+        Window::outlineShader->setMat4("model", glm::scale(model,glm::vec3(scale,scale,scale)));
+        glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+        glStencilMask(0xFF);
+        glStencilFunc(GL_ALWAYS, 0, 0xFF);
+        glEnable(GL_DEPTH_TEST);
+    }
+    else
+    {
+        //glStencilMask(0x00);
+        glBindVertexArray(VAO);
+		glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, diffuseMap->getID());
+        glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, 0);
+        glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+
+    }
 
     // always good practice to set everything back to defaults once configured.
     glActiveTexture(GL_TEXTURE0);

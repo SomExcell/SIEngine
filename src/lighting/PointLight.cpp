@@ -25,8 +25,6 @@ void PointLight::draw()
     Window::objectShader->setFloat("pointLights[" + indexLightStr + "].quadratic", quadratic);
 
     Window::lightShader->use();
-    Window::lightShader->setMat4("projection",Window::camera->getProjection());
-    Window::lightShader->setMat4("view",Window::camera->getView());
     Window::lightShader->setMat4("model", model);
 
     glBindVertexArray(VAO);

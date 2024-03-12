@@ -102,4 +102,21 @@ void Events::pullEvents(){
 	deltaX = 0.0f;
 	deltaY = 0.0f;
 	glfwPollEvents();
+	updateCameraCoordinatesInShaders();
+}
+
+void Events::updateCameraCoordinatesInShaders()
+{
+	Window::outlineShader->use();
+    Window::outlineShader->setMat4("view", Window::camera->getView());
+    Window::outlineShader->setMat4("projection", Window::camera->getProjection());
+
+	Window::objectShader->use();
+    Window::objectShader->setMat4("view", Window::camera->getView());
+    Window::objectShader->setMat4("projection", Window::camera->getProjection());
+    Window::objectShader->setVec3("viewPos",Window::camera->position);
+
+	Window::lightShader->use();
+    Window::lightShader->setMat4("projection",Window::camera->getProjection());
+    Window::lightShader->setMat4("view",Window::camera->getView());
 }

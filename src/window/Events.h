@@ -19,6 +19,7 @@ public:
 
 	static int initialize();
 	static void pullEvents();
+	static void updateCameraCoordinatesInShaders();
 
 	static bool pressed(int keycode);
 	static bool jpressed(int keycode);

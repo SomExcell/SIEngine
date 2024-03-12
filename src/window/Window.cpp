@@ -8,6 +8,7 @@ GLFWwindow* Window::window = nullptr;
 
 Shader *Window::objectShader;
 Shader *Window::lightShader;
+Shader *Window::outlineShader;
 
 Camera *Window::camera = nullptr;
 
@@ -89,6 +90,11 @@ void Window::loadObjectShaders(const std::string &vertexFile, const std::string 
 void Window::loadLightShaders(const std::string &vertexFile, const std::string &fragmentFile)
 {
     lightShader = load_shader(vertexFile,fragmentFile);
+}
+
+void Window::loadOutlineShaders(const std::string &vertexFile, const std::string &fragmentFile)
+{
+    outlineShader = load_shader(vertexFile,fragmentFile);
 }
 
 void Window::setCamera(Camera *camera)

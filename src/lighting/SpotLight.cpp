@@ -29,8 +29,6 @@ void SpotLight::draw()
     Window::objectShader->setFloat("spotLights[" + indexLightStr + "].outerCutOff", glm::cos(glm::radians(15.0f)));
 
     Window::lightShader->use();
-    Window::lightShader->setMat4("projection",Window::camera->getProjection());
-    Window::lightShader->setMat4("view",Window::camera->getView());
     //Window::lightShader->setMat4("model", model);
 }
 

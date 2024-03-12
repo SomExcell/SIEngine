@@ -20,6 +20,7 @@ public:
 
     static void loadObjectShaders(const std::string &vertexFile, const std::string &fragmentFile);
     static void loadLightShaders(const std::string &vertexFile, const std::string &fragmentFile);
+    static void loadOutlineShaders(const std::string &vertexFile, const std::string &fragmentFile);
     static void setCamera(Camera *camera);
 
     static void displayFPS();
@@ -31,6 +32,7 @@ public:
 
     static Shader *objectShader;
     static Shader *lightShader;
+    static Shader *outlineShader;
 
     static Camera *camera;
 
@@ -41,4 +43,3 @@ public:
 };
 
 #endif
-

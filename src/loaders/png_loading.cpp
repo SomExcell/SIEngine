@@ -41,5 +41,5 @@ Texture* load_texture(const std::string &path)
     {
         std::cerr << "Failed to load texture" << std::endl;
     }
-	return new Texture(texture, path,SPECULAR);
+	return new Texture(texture, path,DIFFUSE);
 }

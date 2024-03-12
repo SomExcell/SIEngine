@@ -196,3 +196,11 @@ void Model::setModel(const glm::mat4 &model)
         meshes[i].setModel(model);
     }
 }
+
+void Model::outline(const bool &state)
+{
+    for (size_t i = 0; i < meshes.size(); ++i)
+    {
+        meshes[i].outline = state;
+    }
+}

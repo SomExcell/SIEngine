@@ -29,11 +29,16 @@ public:
     virtual void setModel(const glm::mat4 &model);
     virtual void setRotate(const float &angle, const glm::vec3 &rotate);
 
+    virtual glm::vec3 getPosition();
+    virtual glm::vec3 getScale();
+    virtual glm::mat4 getModel();
+    virtual glm::vec4 getColor();
+
     virtual GLuint getVAO();
     virtual GLuint getVBO();
 
-    virtual glm::vec4 getColor();
-    virtual glm::vec3 getPosition();
+public:
+    bool outline = false;
 
 protected:
     virtual void setVertices(){};
@@ -54,6 +59,7 @@ protected:
     glm::mat4 model;
 
     glm::vec4 color;
+
 };
 
 #endif

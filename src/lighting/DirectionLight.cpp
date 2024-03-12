@@ -14,9 +14,6 @@ void DirectionLight::draw()
     Window::objectShader->setVec3("dirLight.diffuse",diffuse);
     Window::objectShader->setVec3("dirLight.specular",specular);
 
-    Window::lightShader->use();
-    Window::lightShader->setMat4("projection",Window::camera->getProjection());
-    Window::lightShader->setMat4("view",Window::camera->getView());
 }
 
 void DirectionLight::disable()

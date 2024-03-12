@@ -63,5 +63,5 @@ glm::mat4 Camera::getProjection(){
 }
 
 glm::mat4 Camera::getView(){
-	return glm::lookAt(position, position+front, up);
+	return glm::lookAt(position, position + front, up);
 }
