@@ -186,7 +186,7 @@ int main() {
 		skyLight.setColor(glm::vec4(0.3+abs(sin(glfwGetTime()))*0.6,0.3 + abs(cos(glfwGetTime()))*0.6,0.3 + abs(cos(glfwGetTime()))*0.6,1));
 		skyLight.setPosition(glm::vec3(sin(glfwGetTime()*3)*3,sin(glfwGetTime())*3+5,cos(glfwGetTime()*3)*3+15));
 		skyLight.draw();
-
+		
 		storm.draw();
 		planet.draw();
 		
