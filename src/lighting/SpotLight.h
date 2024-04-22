@@ -10,8 +10,6 @@ public:
     ~SpotLight(){};
 
     void draw() override;
-    void disable() override;
-    void activate() override;
 
 private:
     static int countLights;

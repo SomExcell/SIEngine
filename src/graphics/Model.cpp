@@ -204,3 +204,11 @@ void Model::outline(const bool &state)
         meshes[i].outline = state;
     }
 }
+
+void Model::setFlipTexture(const bool &state)
+{
+    for (size_t i = 0; i < meshes.size(); ++i)
+    {
+        meshes[i].flipTexture(state);
+    }
+}

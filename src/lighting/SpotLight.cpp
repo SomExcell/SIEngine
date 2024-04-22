@@ -8,7 +8,6 @@ SpotLight::SpotLight()
     countLights++;
     indexLight = countLights - 1;
     indexLightStr = std::to_string(indexLight);
-    activate();
     Window::objectShader->use();
     Window::objectShader->setInt("countSpotLights",countLights);
 
@@ -25,21 +24,10 @@ void SpotLight::draw()
     Window::objectShader->setFloat("spotLights[" + indexLightStr + "].constant", constant);
     Window::objectShader->setFloat("spotLights[" + indexLightStr + "].linear", linear);
     Window::objectShader->setFloat("spotLights[" + indexLightStr + "].quadratic", quadratic);
-    Window::objectShader->setFloat("spotLights[" + indexLightStr + "].cutOff", glm::cos(glm::radians(12.5f)));
-    Window::objectShader->setFloat("spotLights[" + indexLightStr + "].outerCutOff", glm::cos(glm::radians(15.0f)));
+    Window::objectShader->setFloat("spotLights[" + indexLightStr + "].cutOff", glm::cos(glm::radians(cutOff)));
+    Window::objectShader->setFloat("spotLights[" + indexLightStr + "].outerCutOff", glm::cos(glm::radians(outerCutOff)));
+    Window::objectShader->setBool("spotLights[" + indexLightStr + "].isActive",status);
 
     Window::lightShader->use();
     //Window::lightShader->setMat4("model", model);
-}
-
-void SpotLight::disable()
-{
-    Window::objectShader->use();
-    Window::objectShader->setBool("spotLights[" + indexLightStr + "].isActive",false);
-}
-
-void SpotLight::activate()
-{
-    Window::objectShader->use();
-    Window::objectShader->setBool("spotLights[" + indexLightStr + "].isActive",true);
 }

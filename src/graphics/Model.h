@@ -28,6 +28,7 @@ public:
     void setPosition(const glm::vec3 &position);
     void setModel(const glm::mat4 &model);
     void outline(const bool &state);
+    void setFlipTexture(const bool &state);
     
 private:
     void loadModel(const std::string &path);

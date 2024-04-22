@@ -1,10 +1,7 @@
 #include "DirectionLight.h"
 #include "window/Window.h"
 
-DirectionLight::DirectionLight()
-{
-    activate();
-}
+DirectionLight::DirectionLight(){}
 
 void DirectionLight::draw()
 {
@@ -13,17 +10,9 @@ void DirectionLight::draw()
     Window::objectShader->setVec3("dirLight.ambient",ambient);
     Window::objectShader->setVec3("dirLight.diffuse",diffuse);
     Window::objectShader->setVec3("dirLight.specular",specular);
+    Window::objectShader->setBool("isDirLight",status);
+    if(status){glClearColor(0.5f,0.5f,0.5f,1.0f);}
+    else {glClearColor(0.2f,0.2f,0.2f,1.0f);}
+    
 
-}
-
-void DirectionLight::disable()
-{
-    Window::objectShader->use();
-    Window::objectShader->setBool("isDirLight",false);
-}
-
-void DirectionLight::activate()
-{
-    Window::objectShader->use();
-    Window::objectShader->setBool("isDirLight",true);
 }

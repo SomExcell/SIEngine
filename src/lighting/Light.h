@@ -24,8 +24,8 @@ public:
     virtual void setcutOff(const float &cutOff);
     virtual void setOuterCutOff(const float &outerCutOff);
 
-    virtual void disable() = 0;
-    virtual void activate() = 0;
+    virtual void switcher(const bool &status);
+    virtual bool getStatus();
 
 protected:
     void setVertices() override;
@@ -45,6 +45,8 @@ protected:
 
     float cutOff = 0.1f;
     float outerCutOff = 0.1f;
+
+    bool status = true;
 };
 
 #endif

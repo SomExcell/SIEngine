@@ -21,7 +21,7 @@ public:
     virtual void loadSpecularMap(const std::string &texturePath);
     virtual void loadEmissionMap(const std::string &texturePath);
 
-    virtual void draw() = 0;
+    virtual void draw();
     virtual void setColor(const glm::vec4 &color);
 
     virtual void setPosition(const glm::vec3 &position);
@@ -37,6 +37,8 @@ public:
     virtual GLuint getVAO();
     virtual GLuint getVBO();
 
+    virtual void flipTexture(bool state);
+
 public:
     bool outline = false;
 
@@ -45,20 +47,22 @@ protected:
     virtual void setupBufferVertex(){};
 
 protected:
-    Texture* texture;
-    Texture* diffuseMap;
-    Texture* specularMap;
-    Texture* emissionMap;
+    Texture* texture = nullptr;
+    Texture* diffuseMap = nullptr;
+    Texture* specularMap = nullptr;
+    Texture* emissionMap = nullptr;
 
     unsigned int VBO = 0, VAO = 0, EBO = 0;
 
-    glm::vec3 position;
-    glm::vec3 scale;
-    glm::vec3 rotate;
-    float angle;
-    glm::mat4 model;
+    glm::vec3 position = glm::vec3(1.0f);
+    glm::vec3 scale = glm::vec3(1.0f);
+    glm::vec3 rotate = glm::vec3(1.0f);
+    float angle = 0.0f;
+    glm::mat4 model = glm::mat4(1.0f);
 
     glm::vec4 color;
+
+    bool _flipTexture = true;
 
 };
 

@@ -85,6 +85,16 @@ void Light::setLights(const glm::vec3 &ambientLight, const glm::vec3 &diffuseLig
     specular = specularLight;
 }
 
+void Light::switcher(const bool &status)
+{
+    this->status = status;
+}
+
+bool Light::getStatus()
+{
+    return status;
+}
+
 void Light::setAmbientLight(const glm::vec3 &ambientLight)
 {
     ambient = ambientLight;

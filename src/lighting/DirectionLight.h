@@ -10,8 +10,6 @@ public:
     ~DirectionLight(){};
 
     void draw() override;
-    void disable() override;
-    void activate() override;
 
 private:
 

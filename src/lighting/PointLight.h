@@ -12,9 +12,6 @@ public:
     void draw() override;
     void setColor(const glm::vec4 &color) override;
 
-    void disable() override;
-    void activate() override;
-
 private:
     static int countLights;
     int indexLight;

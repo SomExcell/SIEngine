@@ -14,6 +14,51 @@ GameObject::~GameObject()
 	//glDeleteVertexArrays(1, &VAO);
 }
 
+void GameObject::draw()
+{
+    Window::objectShader->use();
+    Window::objectShader->setFloat("material.shininess",32.0f);
+    glm::mat4 mat = model;
+    mat = glm::translate(mat,position);
+    mat = glm::scale(mat,scale);
+    mat = glm::rotate(mat,glm::radians(angle), rotate);
+
+    Window::objectShader->setMat4("model", mat);
+    glBindVertexArray(VAO);
+    if(diffuseMap)
+    {
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, diffuseMap->getID());
+    }
+    else
+    {
+        glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+    }
+    
+    if(specularMap)
+    {
+        glActiveTexture(GL_TEXTURE1);
+	    glBindTexture(GL_TEXTURE_2D, specularMap->getID());
+    }else
+    {
+        glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    if(emissionMap)
+    {
+        glActiveTexture(GL_TEXTURE2);
+	    glBindTexture(GL_TEXTURE_2D, emissionMap->getID());
+    }
+    else
+    {
+        glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, 0);
+    }
+    
+}
+
 void GameObject::loadTexture(const std::string &texturePath)
 {
     texture = load_texture(texturePath);
@@ -48,19 +93,16 @@ void GameObject::setColor(const glm::vec4 &color)
 
 void GameObject::setPosition(const glm::vec3 &position)
 {
-    model = glm::translate(model,position);
     this->position = position;
 }
 
 void GameObject::setScale(const glm::vec3 &scale)
 {
-    model = glm::scale(model,scale);
     this->scale = scale;
 }
 
 void GameObject::setRotate(const float& angle, const glm::vec3 &rotate)
 {
-    model = glm::rotate(model,glm::radians(angle), rotate);
     this->angle = angle;
     this->rotate = rotate;
 }
@@ -98,4 +140,9 @@ GLuint GameObject::getVBO()
 glm::vec4 GameObject::getColor()
 {
     return color;
+}
+
+void GameObject::flipTexture(bool state)
+{
+    _flipTexture = state;
 }

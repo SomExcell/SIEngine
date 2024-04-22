@@ -83,9 +83,11 @@ void Rectangle::setupBufferVertex()
 
 void Rectangle::draw()
 {
-    Window::objectShader->use();
-    Window::objectShader->setFloat("material.shininess",32.0f);
-    Window::objectShader->setMat4("model", model);
+    GameObject::draw();
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+    glActiveTexture(GL_TEXTURE0);
+
+    /*
     if(outline)
     {
         glStencilFunc(GL_ALWAYS, 1, 0xFF);
@@ -105,7 +107,7 @@ void Rectangle::draw()
         Window::outlineShader->use();
         float scale = 1.1f;
 		
-        Window::outlineShader->setMat4("model", glm::scale(model,glm::vec3(scale,scale,scale)));
+        Window::outlineShader->setMat4("model", glm::scale(mat,glm::vec3(scale,scale,scale)));
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
         glStencilMask(0xFF);
@@ -124,5 +126,5 @@ void Rectangle::draw()
         glBindVertexArray(0);
 
     }
-    
+    */
 }
