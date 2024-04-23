@@ -27,7 +27,8 @@ int main() {
 	Window::initialize(1280, 720, "SIEngine");
 	Events::initialize();
     Camera* firstCamera = new Camera(glm::vec3(0,0,1), glm::radians(60.0f));
-	Camera* secondCamera = new Camera(glm::vec3(5,5,1),glm::radians(60.0f));
+	Camera* secondCamera = new Camera(glm::vec3(25,10,25),glm::radians(60.0f));
+	//secondCamera->rotate(90,0,90);
     Window::setCamera(firstCamera);
 	
     Window::loadObjectShaders("resources/shaders/objectVS.vs","resources/shaders/objectFS.fs");
@@ -40,8 +41,13 @@ int main() {
 	storm.setPosition(glm::vec3(10,-0.5f,0));
 	storm.setFlipTexture(false);
 
-	Model planet("resources/models/planet/planet.obj");
-	planet.setPosition(glm::vec3(10,10,10));
+	Model planet("resources/models/planet/saturn2/planet.obj");
+	planet.setScale(glm::vec3(3));
+	planet.setPosition(glm::vec3(10,20,10));
+
+	Model spaceship("resources/models/spaceship/spaceship.obj");
+	spaceship.setScale(glm::vec3(0.1));
+	spaceship.setPosition(glm::vec3(0,0,10));
 	
 	Rectangle firstCube{};
     firstCube.loadDiffuseMap("resources/images/container2.png");
@@ -184,12 +190,13 @@ int main() {
 		greenLight.draw();
 
 		skyLight.setColor(glm::vec4(0.3+abs(sin(glfwGetTime()))*0.6,0.3 + abs(cos(glfwGetTime()))*0.6,0.3 + abs(cos(glfwGetTime()))*0.6,1));
-		skyLight.setPosition(glm::vec3(sin(glfwGetTime()*3)*3,sin(glfwGetTime())*3+5,cos(glfwGetTime()*3)*3+15));
+		skyLight.setPosition(glm::vec3(sin(glfwGetTime()*3)*3,sin(glfwGetTime())*3+5,cos(glfwGetTime()*3)*3+20));
 		skyLight.draw();
 		
 		storm.draw();
 		planet.draw();
-		
+		spaceship.draw();
+
 		emisionCube.draw();
 		
 		Window::objectShader->use();

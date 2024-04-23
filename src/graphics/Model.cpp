@@ -115,6 +115,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
         // normal: texture_normalN
 
     // 1. diffuse maps
+    
     std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, DIFFUSE);
     textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
     // 2. specular maps
@@ -126,6 +127,18 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
     // 4. height maps
     std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, HEIGHT);
     textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+
+    /*
+    if(textures.empty())
+    {
+        for (int i = 0; i < 22; i++)
+        {
+            std::vector<Texture> texture = loadMaterialTextures(material,aiTextureType(i),DIFFUSE);
+            textures.insert(textures.end(),texture.begin(),texture.end());
+        }
+
+    }
+    */
     
     // return a mesh object created from the extracted mesh data
     return Mesh(vertices, indices, textures);
