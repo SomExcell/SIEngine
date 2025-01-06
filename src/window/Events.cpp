@@ -94,7 +94,7 @@ bool Events::jclicked(int button){
 
 void Events::toogleCursor(){
 	_cursor_locked = !_cursor_locked;
-	Window::setCursorMode(_cursor_locked ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
+    Window::SetCursorMode(_cursor_locked ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
 }
 
 void Events::pullEvents(){
@@ -107,16 +107,16 @@ void Events::pullEvents(){
 
 void Events::updateCameraCoordinatesInShaders()
 {
-	Window::outlineShader->use();
-    Window::outlineShader->setMat4("view", Window::camera->getView());
-    Window::outlineShader->setMat4("projection", Window::camera->getProjection());
+	Window::outlineShader->Use();
+    Window::outlineShader->SetMat4("view", Window::camera->getView());
+    Window::outlineShader->SetMat4("projection", Window::camera->getProjection());
 
-	Window::objectShader->use();
-    Window::objectShader->setMat4("view", Window::camera->getView());
-    Window::objectShader->setMat4("projection", Window::camera->getProjection());
-    Window::objectShader->setVec3("viewPos",Window::camera->position);
+	Window::objectShader->Use();
+    Window::objectShader->SetMat4("view", Window::camera->getView());
+    Window::objectShader->SetMat4("projection", Window::camera->getProjection());
+    Window::objectShader->SetVec3("viewPos", Window::camera->position);
 
-	Window::lightShader->use();
-    Window::lightShader->setMat4("projection",Window::camera->getProjection());
-    Window::lightShader->setMat4("view",Window::camera->getView());
+	Window::lightShader->Use();
+    Window::lightShader->SetMat4("projection", Window::camera->getProjection());
+    Window::lightShader->SetMat4("view", Window::camera->getView());
 }

@@ -1,10 +1,9 @@
-#include <iostream>
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
+#include <mutex>
 
 #include "graphics/Shader.h"
 #include "graphics/Texture.h"
@@ -17,23 +16,30 @@
 #include "lighting/PointLight.h"
 #include "lighting/SpotLight.h"
 #include "graphics/Model.h"
+#include "Engine/IGame.h"
+#include "Engine/Engine.h"
+#include "Game/Game.h"
 
 void checkKeys();
 
 void drawFloor(Rectangle &floor);
 void drawSphers(Model &sphere);
 
-int main() {
-	Window::initialize(1280, 720, "SIEngine");
+
+int main()
+{
+    //Engine::Run(std::unique_ptr<IGame>{new Game{}});
+
+    Window::Initialize(1280, 720, "SIEngine");
 	Events::initialize();
     Camera* firstCamera = new Camera(glm::vec3(0,0,1), glm::radians(60.0f));
 	Camera* secondCamera = new Camera(glm::vec3(25,10,25),glm::radians(60.0f));
 	//secondCamera->rotate(90,0,90);
-    Window::setCamera(firstCamera);
-	
-    Window::loadObjectShaders("resources/shaders/objectVS.vs","resources/shaders/objectFS.fs");
-    Window::loadLightShaders("resources/shaders/lightVS.vs","resources/shaders/lightFS.fs");
-	Window::loadOutlineShaders("resources/shaders/outlineVS.vs","resources/shaders/outlineFS.fs");
+    Window::SetCamera(firstCamera);
+
+    Window::LoadObjectShaders("resources/shaders/objectVS.vs", "resources/shaders/objectFS.fs");
+    Window::LoadLightShaders("resources/shaders/lightVS.vs", "resources/shaders/lightFS.fs");
+    Window::LoadOutlineShaders("resources/shaders/outlineVS.vs", "resources/shaders/outlineFS.fs");
 	
 	Model sphere("resources/models/shapes/sphere.obj");
 
@@ -118,7 +124,7 @@ int main() {
 	bool switchDirLight = true;
 	int switchPointLight = 1;
 	int  numCamera = 0;
-	while (!Window::isShouldClose()){
+	while (!Window::IsShouldClose()){
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
@@ -128,15 +134,15 @@ int main() {
 			numCamera%3 == 0?numCamera = 1 :numCamera%=3;
 			if(numCamera == 1)
 			{
-				Window::setCamera(firstCamera);
+                Window::SetCamera(firstCamera);
 			}else if(numCamera == 2)
 			{
-				Window::setCamera(secondCamera);
+                Window::SetCamera(secondCamera);
 			}
 			
 		}
 		if (Events::jpressed(GLFW_KEY_ESCAPE)){
-			Window::setShouldClose(true);
+            Window::SetShouldClose(true);
 		}
 		if (Events::jpressed(GLFW_KEY_TAB))
 		{
@@ -175,8 +181,8 @@ int main() {
 			firstCube.outline ? sphere.outline(false) : sphere.outline(true);
 			firstCube.outline ? firstCube.outline = false : firstCube.outline = true;
 		}
-		
-        Window::displayFPS();
+
+        Window::DisplayFPS();
 
         Window::camera->move();
 		spotLight.setPosition(Window::camera->position);
@@ -198,24 +204,24 @@ int main() {
 		spaceship.draw();
 
 		emisionCube.draw();
-		
-		Window::objectShader->use();
-		Window::objectShader->setFloat("time",glfwGetTime());
-		Window::objectShader->setBool("moveTex",true);
+
+        Window::objectShader->Use();
+        Window::objectShader->SetFloat("time", glfwGetTime());
+        Window::objectShader->SetBool("moveTex", true);
 		matCube.draw();
-		Window::objectShader->setBool("moveTex",false);
+        Window::objectShader->SetBool("moveTex", false);
 		
 		firstCube.draw();
 		secondCube.draw();
 
 		drawSphers(sphere);
 		drawFloor(floor);
-		
-		Window::swapBuffers();
+
+        Window::SwapBuffers();
 		Events::pullEvents();
 	}
 
-	Window::terminate();
+    Window::Terminate();
 	return 0;
 }
 

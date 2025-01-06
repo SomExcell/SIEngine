@@ -8,22 +8,18 @@ GameObject::GameObject()
     position = glm::vec3(0.0f);
 }
 
-GameObject::~GameObject()
-{
-    //glDeleteBuffers(1, &VBO);
-	//glDeleteVertexArrays(1, &VAO);
-}
+GameObject::~GameObject() = default;
 
 void GameObject::draw()
 {
-    Window::objectShader->use();
-    Window::objectShader->setFloat("material.shininess",32.0f);
+    Window::objectShader->Use();
+    Window::objectShader->SetFloat("material.shininess",32.0f);
     glm::mat4 mat = model;
     mat = glm::translate(mat,position);
     mat = glm::scale(mat,scale);
     mat = glm::rotate(mat,glm::radians(angle), rotate);
 
-    Window::objectShader->setMat4("model", mat);
+    Window::objectShader->SetMat4("model", mat);
     glBindVertexArray(VAO);
     if(diffuseMap)
     {
@@ -67,23 +63,23 @@ void GameObject::loadTexture(const std::string &texturePath)
 void GameObject::loadDiffuseMap(const std::string &texturePath)
 {
     diffuseMap = load_texture(texturePath);
-    Window::objectShader->use();
-    Window::objectShader->setInt("material.diffuse", 0);
+    Window::objectShader->Use();
+    Window::objectShader->SetInt("material.diffuse", 0);
 }
 
 void GameObject::loadSpecularMap(const std::string &texturePath)
 {
     specularMap = load_texture(texturePath);
-    Window::objectShader->use();
-    Window::objectShader->setInt("material.specular", 1);
+    Window::objectShader->Use();
+    Window::objectShader->SetInt("material.specular", 1);
     
 }
 
 void GameObject::loadEmissionMap(const std::string &texturePath)
 {
     emissionMap = load_texture(texturePath);
-    Window::objectShader->use();
-    Window::objectShader->setInt("material.emission",2);
+    Window::objectShader->Use();
+    Window::objectShader->SetInt("material.emission", 2);
 }
 
 void GameObject::setColor(const glm::vec4 &color)

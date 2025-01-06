@@ -15,6 +15,7 @@ public:
 
     glm::mat4 getProjection();
     glm::mat4 getView();
+
 public:
     glm::vec3 front;
     glm::vec3 up;

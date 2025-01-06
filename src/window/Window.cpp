@@ -17,10 +17,10 @@ unsigned int Window::height = 0;
 
 unsigned int Window::counter = 0;
 double Window::prevTime = glfwGetTime();
-double Window::crntTime = 0.0;
+double Window::currentTime = 0.0;
 double Window::timeDiff = 0.0;
 
-int Window::initialize(const int &width, const int &height, const char* title)
+int Window::Initialize(const int &width, const int &height, const char* title)
 {
     glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -30,7 +30,7 @@ int Window::initialize(const int &width, const int &height, const char* title)
     
     if (!glfwInit())
     {
-        std::cerr << "Failed to initialize glfw" << std::endl;
+        std::cerr << "Failed to Initialize glfw" << std::endl;
         return -1;
     }
 
@@ -46,7 +46,7 @@ int Window::initialize(const int &width, const int &height, const char* title)
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        std::cerr << "Failed to initialize GLAD" << std::endl;
+        std::cerr << "Failed to Initialize GLAD" << std::endl;
         return -1;
     }
 
@@ -57,55 +57,55 @@ int Window::initialize(const int &width, const int &height, const char* title)
 	return 0;
 }
 
-void Window::setCursorMode(int mode)
+void Window::SetCursorMode(int mode)
 {
 	glfwSetInputMode(window, GLFW_CURSOR, mode);
 }
 
-void Window::terminate()
+void Window::Terminate()
 {
 	glfwTerminate();
 }
 
-bool Window::isShouldClose()
+bool Window::IsShouldClose()
 {
 	return glfwWindowShouldClose(window);
 }
 
-void Window::setShouldClose(bool flag)
+void Window::SetShouldClose(bool flag)
 {
 	glfwSetWindowShouldClose(window, flag);
 }
 
-void Window::swapBuffers()
+void Window::SwapBuffers()
 {
 	glfwSwapBuffers(window);
 }
 
-void Window::loadObjectShaders(const std::string &vertexFile, const std::string &fragmentFile)
+void Window::LoadObjectShaders(const std::string &vertexFile, const std::string &fragmentFile)
 {
-    objectShader = load_shader(vertexFile,fragmentFile);
+    objectShader = new Shader{vertexFile, fragmentFile};
 }
 
-void Window::loadLightShaders(const std::string &vertexFile, const std::string &fragmentFile)
+void Window::LoadLightShaders(const std::string &vertexFile, const std::string &fragmentFile)
 {
-    lightShader = load_shader(vertexFile,fragmentFile);
+    lightShader = new Shader(vertexFile,fragmentFile);
 }
 
-void Window::loadOutlineShaders(const std::string &vertexFile, const std::string &fragmentFile)
+void Window::LoadOutlineShaders(const std::string &vertexFile, const std::string &fragmentFile)
 {
-    outlineShader = load_shader(vertexFile,fragmentFile);
+    outlineShader = new Shader(vertexFile,fragmentFile);
 }
 
-void Window::setCamera(Camera *camera)
+void Window::SetCamera(Camera *camera)
 {
     Window::camera = camera;
 }
 
-void Window::displayFPS()
+void Window::DisplayFPS()
 {
-    crntTime = glfwGetTime();
-    timeDiff = crntTime - prevTime;
+    currentTime = glfwGetTime();
+    timeDiff = currentTime - prevTime;
     counter++;
     if(timeDiff >= 1.0 / 30.0)
     {
@@ -114,7 +114,7 @@ void Window::displayFPS()
         std::string newTitle = "SIEngine - " + FPS + "FPS / " + ms + "ms";
         glfwSetWindowTitle(Window::window, newTitle.c_str());
         counter = 0;
-        prevTime = crntTime;
+        prevTime = currentTime;
         
     }
 }

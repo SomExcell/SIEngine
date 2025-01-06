@@ -3,27 +3,29 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
 #include "graphics/Shader.h"
 #include "Camera.h"
-
 
 class Window
 {
 public:
-    static int initialize(const int &width, const int &height, const char* title);
-    static void terminate();
 
-    static void setCursorMode(int mode);
-    static bool isShouldClose();
-    static void setShouldClose(bool flag);
-    static void swapBuffers();
+public:
+    static int Initialize(const int &width, const int &height, const char* title);
+    static void Terminate();
 
-    static void loadObjectShaders(const std::string &vertexFile, const std::string &fragmentFile);
-    static void loadLightShaders(const std::string &vertexFile, const std::string &fragmentFile);
-    static void loadOutlineShaders(const std::string &vertexFile, const std::string &fragmentFile);
-    static void setCamera(Camera *camera);
+    static void SetCursorMode(int mode);
+    static bool IsShouldClose();
+    static void SetShouldClose(bool flag);
+    static void SwapBuffers();
 
-    static void displayFPS();
+    static void LoadObjectShaders(const std::string &vertexFile, const std::string &fragmentFile);
+    static void LoadLightShaders(const std::string &vertexFile, const std::string &fragmentFile);
+    static void LoadOutlineShaders(const std::string &vertexFile, const std::string &fragmentFile);
+    static void SetCamera(Camera *camera);
+
+    static void DisplayFPS();
 
     static GLFWwindow *window;
 
@@ -37,7 +39,7 @@ public:
     static Camera *camera;
 
     static double prevTime;
-    static double crntTime;
+    static double currentTime;
     static double timeDiff;
     static unsigned int counter;
 };

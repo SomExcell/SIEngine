@@ -49,7 +49,7 @@ void Mesh::draw()
 {
     if(_flipTexture){stbi_set_flip_vertically_on_load(true);}
     else{stbi_set_flip_vertically_on_load(false);}
-    Window::objectShader->use();
+    Window::objectShader->Use();
     unsigned int diffuseNr  = 1;
     unsigned int specularNr = 1;
     unsigned int normalNr   = 1;
@@ -89,7 +89,7 @@ void Mesh::draw()
     mat = glm::scale(mat,scale);
     mat = glm::rotate(mat,glm::radians(angle), rotate);
 
-    Window::objectShader->setMat4("model", mat);
+    Window::objectShader->SetMat4("model", mat);
 
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(indices.size()), GL_UNSIGNED_INT, 0);
