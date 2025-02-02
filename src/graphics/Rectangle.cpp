@@ -1,5 +1,5 @@
 #include "Rectangle.h"
-#include "window/Window.h"
+#include "SIEngine/Components/Window.h"
 
 Rectangle::Rectangle()
 {

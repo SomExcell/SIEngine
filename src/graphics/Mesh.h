@@ -10,8 +10,9 @@
 #include <string>
 #include <vector>
 
-#include "Texture.h"
+#include "SIEngine/GraphicsAPI/OpenGL/Texture.h"
 #include "GameObject.h"
+#include "SIEngine/Components/Window.h"
 
 struct Vertex
 {

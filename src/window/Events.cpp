@@ -15,7 +15,7 @@ bool Events::_cursor_started = false;
 
 #define _MOUSE_BUTTONS 1024
 
-void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
+void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos){
 	if (Events::_cursor_started){
 		Events::deltaX += xpos-Events::x;
 		Events::deltaY += ypos-Events::y;
@@ -27,7 +27,7 @@ void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
 	Events::y = ypos;
 }
 
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mode){
+void MouseButtonCallback(GLFWwindow* window, int button, int action, int mode){
 	if (action == GLFW_PRESS){
 		Events::_keys[_MOUSE_BUTTONS+button] = true;
 		Events::_frames[_MOUSE_BUTTONS+button] = Events::_current;
@@ -38,7 +38,7 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mode)
 	}
 }
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode) {
+void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode) {
 	if (action == GLFW_PRESS){
 		Events::_keys[key] = true;
 		Events::_frames[key] = Events::_current;
@@ -49,7 +49,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	}
 }
 
-void window_size_callback(GLFWwindow* window, int width, int height){
+void WindowSizeCallback(GLFWwindow* window, int width, int height){
 	glViewport(0,0, width, height);
 	Window::width = width;
 	Window::height = height;
@@ -63,10 +63,10 @@ int Events::initialize(){
 	memset(_keys, false, 1032*sizeof(bool));
 	memset(_frames, 0, 1032*sizeof(uint));
 
-	glfwSetKeyCallback(window, key_callback);
-	glfwSetMouseButtonCallback(window, mouse_button_callback);
-	glfwSetCursorPosCallback(window, cursor_position_callback);
-	glfwSetWindowSizeCallback(window, window_size_callback);
+    glfwSetKeyCallback(window, KeyCallback);
+    glfwSetMouseButtonCallback(window, MouseButtonCallback);
+    glfwSetCursorPosCallback(window, CursorPositionCallback);
+    glfwSetWindowSizeCallback(window, WindowSizeCallback);
 	return 0;
 }
 
@@ -107,7 +107,7 @@ void Events::pullEvents(){
 
 void Events::updateCameraCoordinatesInShaders()
 {
-	Window::outlineShader->Use();
+	/*Window::outlineShader->Use();
     Window::outlineShader->SetMat4("view", Window::camera->getView());
     Window::outlineShader->SetMat4("projection", Window::camera->getProjection());
 
@@ -118,5 +118,5 @@ void Events::updateCameraCoordinatesInShaders()
 
 	Window::lightShader->Use();
     Window::lightShader->SetMat4("projection", Window::camera->getProjection());
-    Window::lightShader->SetMat4("view", Window::camera->getView());
+    Window::lightShader->SetMat4("view", Window::camera->getView());*/
 }

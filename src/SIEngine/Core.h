@@ -1,0 +1,6 @@
+#ifndef SIENGINE_CORE_H
+#define SIENGINE_CORE_H
+
+
+
+#endif //SIENGINE_CORE_H

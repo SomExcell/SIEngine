@@ -1,5 +1,5 @@
 #include "SpotLight.h"
-#include "window/Window.h"
+#include "SIEngine/Components/Window.h"
 
 int SpotLight::countLights = 0;
 
@@ -8,14 +8,14 @@ SpotLight::SpotLight()
     countLights++;
     indexLight = countLights - 1;
     indexLightStr = std::to_string(indexLight);
-    Window::objectShader->Use();
-    Window::objectShader->SetInt("countSpotLights", countLights);
+    //Window::objectShader->Use();
+    //Window::objectShader->SetInt("countSpotLights", countLights);
 
 }
 
 void SpotLight::draw()
 {
-    Window::objectShader->Use();
+    /*Window::objectShader->Use();
     Window::objectShader->SetVec3("spotLights[" + indexLightStr + "].position", position);
     Window::objectShader->SetVec3("spotLights[" + indexLightStr + "].direction", direction);
     Window::objectShader->SetVec3("spotLights[" + indexLightStr + "].ambient", ambient);
@@ -28,6 +28,6 @@ void SpotLight::draw()
     Window::objectShader->SetFloat("spotLights[" + indexLightStr + "].outerCutOff", glm::cos(glm::radians(outerCutOff)));
     Window::objectShader->SetBool("spotLights[" + indexLightStr + "].isActive", status);
 
-    Window::lightShader->Use();
+    Window::lightShader->Use();*/
     //Window::lightShader->setMat4("model", model);
 }

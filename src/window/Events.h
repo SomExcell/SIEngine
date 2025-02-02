@@ -1,7 +1,7 @@
 #ifndef WINDOW_EVENTS_H_
 #define WINDOW_EVENTS_H_
 
-#include "Window.h"
+#include "SIEngine/Components/Window.h"
 
 typedef unsigned int uint;
 

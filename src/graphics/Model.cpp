@@ -1,5 +1,4 @@
 #include "Model.h"
-#include "stb_image.h"
 
 Model::Model(const std::string &path)
 {
@@ -157,7 +156,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *material, aiTexture
         bool skip = false;
         for(unsigned int j = 0; j < textures_loaded.size(); j++)
         {
-            if(std::strcmp(textures_loaded[j].getNameFile().data(), str.C_Str()) == 0)
+            if(std::strcmp(textures_loaded[j].GetFileName().data(), str.C_Str()) == 0)
             {
                 textures.push_back(textures_loaded[j]);
                 skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
@@ -168,7 +167,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial *material, aiTexture
         {   // if texture hasn't been loaded already, load it
             path = this->directory + '/' + std::string(str.C_Str());
             Texture texture(path);
-            texture.setType(typeName);
+            texture.SetType(typeName);
             textures.push_back(texture);
             textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecessary load duplicate textures.
         }

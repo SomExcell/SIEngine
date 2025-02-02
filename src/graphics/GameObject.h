@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_GAMEOBJECT_H_
-#define GRAPHICS_GAMEOBJECT_H_
+#ifndef GRAPHICS_GAME_OBJECT_H_
+#define GRAPHICS_GAME_OBJECT_H_
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -7,8 +7,8 @@
 #include <glm/ext.hpp>
 #include <iostream>
 
-#include "Texture.h"
-#include "Shader.h"
+#include "SIEngine/GraphicsAPI/OpenGL/Texture.h"
+#include "SIEngine/GraphicsAPI/OpenGL/Shader.h"
 
 class GameObject
 {

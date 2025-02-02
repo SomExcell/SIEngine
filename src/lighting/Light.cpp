@@ -1,5 +1,5 @@
 #include "Light.h"
-#include "window/Window.h"
+#include "SIEngine/Components/Window.h"
 
 Light::Light()
 {
