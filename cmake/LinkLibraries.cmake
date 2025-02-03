@@ -10,4 +10,7 @@ target_link_libraries(${PROJECT_NAME} glm)
 add_subdirectory(libraries/assimp)
 target_link_libraries(${PROJECT_NAME} assimp)
 
+add_subdirectory(libraries/spdlog)
+target_link_libraries(${PROJECT_NAME} spdlog::spdlog)
+
 include_directories(libraries/stb_image)
