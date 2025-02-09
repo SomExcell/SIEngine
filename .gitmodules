@@ -16,3 +16,6 @@
 [submodule "libraries/glad"]
 	path = libraries/glad
 	url = https://github.com/Dav1dde/glad.git
+[submodule "libraries/spdlog"]
+	path = libraries/spdlog
+	url = https://github.com/gabime/spdlog.git
