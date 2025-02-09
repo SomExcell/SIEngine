@@ -10,8 +10,8 @@ target_link_libraries(${PROJECT_NAME} PRIVATE assimp)
 add_subdirectory(libraries/glfw)
 target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
 
-#include_directories(libraries/glad/)
-#target_link_libraries(${PROJECT_NAME} PRIVATE glad)
+add_subdirectory(libraries/glad/)
+target_link_libraries(${PROJECT_NAME} PRIVATE glad)
 
 add_subdirectory(libraries/glm)
 target_link_libraries(${PROJECT_NAME} PRIVATE glm)
